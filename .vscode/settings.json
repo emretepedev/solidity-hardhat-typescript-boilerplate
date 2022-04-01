@@ -1,0 +1,103 @@
+{
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true,
+    "**/build/*/**": true
+  },
+  "files.associations": {
+    "*.json": "javascript",
+    "package.json": "json"
+  },
+  "files.saveConflictResolution": "overwriteFileOnDisk",
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.formatOnSave": true,
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
+  "json.format.enable": false,
+  "javascript.validate.enable": false,
+  "javascript.format.enable": false,
+  "typescript.format.enable": false,
+  "typescript.validate.enable": false,
+  "typescript.surveys.enabled": false,
+  "[dotenv]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[ignore]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  "[solidity]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 4
+  },
+  "cSpell.language": "en",
+  "cSpell.diagnosticLevel": "Warning",
+  "cSpell.enableFiletypes": ["dotenv", "dockerfile", "ignore", "shellscript"],
+  "versionlens.caching.duration": 0,
+  "versionlens.composer.caching.duration": 0,
+  "versionlens.npm.caching.duration": 0,
+  "errorLens.enabledDiagnosticLevels": ["error", "warning"],
+  "errorLens.fontWeight": "900",
+  "errorLens.margin": "2ch",
+  "errorLens.messageTemplate": "$count $severity: $message -($code) -$source",
+  "errorLens.statusBarMessageTemplate": "$message $source $severity $code",
+  "errorLens.statusBarMessageEnabled": true,
+  "errorLens.statusBarCommand": "copyMessage",
+  "errorLens.statusBarColorsEnabled": true,
+  "errorLens.statusBarIconsEnabled": true,
+  "errorLens.statusBarMessageType": "closestProblem",
+  "errorLens.gutterIconsEnabled": true,
+  "errorLens.gutterIconsFollowCursorOverride": false,
+  "errorLens.onSave": true,
+  "coverage-gutters.showLineCoverage": true,
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": "\\.json$",
+        "cmd": "yarn run prettier ${file} --write; yarn run eslint ${file} --fix;",
+        "isAsync": true
+      },
+      {
+        "match": "\\.js$",
+        "cmd": "yarn run prettier ${file} --write; yarn run eslint ${file} --fix;",
+        "isAsync": true
+      },
+      {
+        "match": "contracts/.*sol$",
+        "cmd": "yarn run prettier ${file} --write; yarn run solhint ${file} --fix;",
+        "isAsync": true
+      }
+    ]
+  },
+  "solidity.defaultCompiler": "localNodeModule",
+  "solidity.enabledAsYouTypeCompilationErrorCheck": false,
+  "solidity-va.codelens.drawio.enable": false,
+  "solidity-va.codelens.funcSigs.enable": false,
+  "solidity-va.codelens.uml.enable": false,
+  "solidity-va.codelens.dependencies.enable": false,
+  "solidity-va.codelens.ftrace.enable": false,
+  "solidity-va.outline.decorations": false,
+  "solidity-va.outline.enable": false,
+  "solidity-va.deco.arguments": false,
+  "solidity-va.deco.statevars": false,
+  "solidity-va.whatsNew.disabled": true,
+  "solidity-va.tools.surya.input.contracts": "workspace"
+}
