@@ -5,3 +5,5 @@ coverage*
 gasReporterOutput.json
 solbin
 .husky
+typechain
+typechain-types

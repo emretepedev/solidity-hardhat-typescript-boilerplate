@@ -1,3 +1,5 @@
 node_modules
 solbin
 .husky
+typechain
+typechain-types
