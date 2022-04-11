@@ -1,0 +1,3 @@
+disable=SC2016,SC1091
+shell=bash
+external-sources=true
