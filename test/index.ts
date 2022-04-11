@@ -9,11 +9,11 @@ describe('Greeter', function () {
 
     expect(await greeter.greet()).to.equal('Hello, world!');
 
-    const setGreetingTx = await greeter.setGreeting('Hola, mundo!');
+    const setGreetingTx = await greeter.setGreeting('world, Hello!');
 
     // wait until the transaction is mined
     await setGreetingTx.wait();
 
-    expect(await greeter.greet()).to.equal('Hola, mundo!');
+    expect(await greeter.greet()).to.equal('world, Hello!');
   });
 });

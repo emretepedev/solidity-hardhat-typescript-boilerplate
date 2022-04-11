@@ -23,7 +23,7 @@ task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
 // Go to https://hardhat.org/config/ to learn more
 
 const config: HardhatUserConfig = {
-  solidity: '0.8.4',
+  solidity: process.env.HARDHAT_SOLIDITY_VERSION || '0.8.7',
   networks: {
     ropsten: {
       url: process.env.ROPSTEN_URL || '',
@@ -32,7 +32,7 @@ const config: HardhatUserConfig = {
     },
   },
   gasReporter: {
-    enabled: process.env.REPORT_GAS !== undefined,
+    enabled: process.env.REPORT_GAS === 'true',
     currency: 'USD',
   },
   etherscan: {
