@@ -2,17 +2,17 @@
 
 pragma solidity ^0.8.0;
 
-// console.log() @TODO: remove that
+// @TODO: console.log() remove in production
 import "hardhat/console.sol";
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract FooToken is ERC20 {
     constructor(uint256 initialSupply) ERC20("Foo Token", "FOO") {
-        _mint(msg.sender, initialSupply);
+        _mint(_msgSender(), initialSupply);
     }
 
-    function decimals() public view override returns (uint8) {
+    function decimals() public pure override returns (uint8 decimal) {
         return 8;
     }
 }
