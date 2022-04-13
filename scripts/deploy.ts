@@ -4,6 +4,8 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 import { ethers } from 'hardhat';
+import { config } from 'dotenv';
+config();
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -13,13 +15,17 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
+  if (!process.env.CONTRACT_1_NAME)
+    throw Error('CONTRACT_1_NAME is not defined');
+
+  const contractName: string = process.env.CONTRACT_1_NAME;
+
   // We get the contract to deploy
-  const Greeter = await ethers.getContractFactory('Greeter');
-  const greeter = await Greeter.deploy('Hello, Hardhat!');
+  const Contract1 = await ethers.getContractFactory(contractName);
+  contract1 = await Contract1.deploy(process.env.CONTRACT_1_TOKEN_SUPPLY);
+  await contract1.deployed();
 
-  await greeter.deployed();
-
-  console.log('Greeter deployed to:', greeter.address);
+  console.log(contractName + ' deployed to:', contract1.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
