@@ -1,11 +1,7 @@
 #!/bin/bash
 
-if [ ! -d "solbin/" ]; then
-  mkdir solbin/
-fi
-
-if [ ! -d "solbin/flatten/" ]; then
-  mkdir solbin/flatten/
+if [ ! -d solbin/flatten/ ]; then
+  mkdir solbin/flatten/ -pv
 fi
 
 yarn run hardhat flatten contracts/"$1".sol >>solbin/flatten/"$1Flatten".sol
