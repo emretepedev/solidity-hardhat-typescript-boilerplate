@@ -12,6 +12,7 @@
     "test": "hardhat test",
     "fresh-test": "hardhat compile --force && hardhat test --no-compile",
     "coverage": "hardhat coverage",
+    "analyze": "slither.sh",
     "generate-flatten": "generateFlatten.sh",
     "generate-bin": "generateBin.sh",
     "generate-abi": "generateAbi.sh",
