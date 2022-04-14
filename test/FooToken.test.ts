@@ -3,7 +3,13 @@ config();
 
 import { expect, assert } from 'chai';
 import { ethers } from 'hardhat';
-import { BigNumber, Contract, Signer, constants } from 'ethers';
+import {
+  BigNumber,
+  Contract,
+  ContractFactory,
+  Signer,
+  constants,
+} from 'ethers';
 
 if (!process.env.CONTRACT_1_NAME) throw Error('CONTRACT_1_NAME is not defined');
 
@@ -12,12 +18,13 @@ const contractName: string = process.env.CONTRACT_1_NAME;
 describe(contractName, () => {
   const value: BigNumber = ethers.BigNumber.from('1');
   let contract1: Contract;
-  let sender: Signer;
-  let receiver: Signer;
+  let sender: Signer, receiver: Signer;
 
   beforeEach(async () => {
     [sender, receiver] = await ethers.getSigners();
-    const Contract1 = await ethers.getContractFactory(contractName);
+    const Contract1: ContractFactory = await ethers.getContractFactory(
+      contractName
+    );
     contract1 = await Contract1.deploy(process.env.CONTRACT_1_TOKEN_SUPPLY);
     await contract1.deployed();
   });
