@@ -12,7 +12,7 @@ contract FooToken is ERC20 {
         _mint(_msgSender(), initialSupply);
     }
 
-    function decimals() public pure override returns (uint8 decimal) {
+    function decimals() public pure override returns (uint8) {
         return 8;
     }
 }
