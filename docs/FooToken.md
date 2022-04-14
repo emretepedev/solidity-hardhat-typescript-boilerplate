@@ -11,7 +11,7 @@
 
 
 
-### `decimals() → uint8 decimal` (public)
+### `decimals() → uint8` (public)
 
 
 
