@@ -17,7 +17,7 @@
     "generate-bin": "generateBin.sh",
     "generate-abi": "generateAbi.sh",
     "generate-docs": "rm -rf docs/; solidity-docgen --solc-module solc",
-    "auto-generate-docs": "checkSolFilesInCommits.sh && yarn run generate-docs && git add docs/ && git commit -m 'auto: updated docs' &>/dev/null",
+    "auto-generate-docs": "checkSolFilesInCommits.sh && yarn run generate-docs && git add docs/ && git commit -m 'auto: updated docs' -q &>/dev/null;",
     "format": "prettier '**/{*,''}.{json,js,sol}' --write; eslint '**/{*,''}.{json,js}' --fix; solhint 'contracts/*.sol' --fix;",
     "format:json": "prettier '**/{*,''}.json' --write; eslint '**/{*,''}.json' --fix;",
     "format:js": "prettier '**/{*,''}.js' --write; eslint '**/{*,''}.js' --fix;",

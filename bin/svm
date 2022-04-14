@@ -12,8 +12,8 @@ elif [ -f ".env" ]; then
   # shellcheck source=../.env
   source ".env"
 
-  solc-select install "$TRUFFLE_SOLIDITY_VERSION"
-  solc-select use "$TRUFFLE_SOLIDITY_VERSION"
+  solc-select install "$SOLIDITY_VERSION"
+  solc-select use "$SOLIDITY_VERSION"
 else
   echo "Cannot find .svmrc or .env file. Fix and re-run the 'svm'."
   exit 0

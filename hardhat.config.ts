@@ -9,6 +9,8 @@ import 'solidity-coverage';
 
 dotenv.config();
 
+if (!process.env.REPORT_GAS) throw Error('REPORT_GAS is not defined');
+
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
 task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
@@ -23,7 +25,7 @@ task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
 // Go to https://hardhat.org/config/ to learn more
 
 const config: HardhatUserConfig = {
-  solidity: process.env.HARDHAT_SOLIDITY_VERSION || '0.8.7',
+  solidity: process.env.SOLIDITY_VERSION || '0.8.7',
   networks: {
     ropsten: {
       url: process.env.ROPSTEN_URL || '',
@@ -32,7 +34,7 @@ const config: HardhatUserConfig = {
     },
   },
   gasReporter: {
-    enabled: process.env.REPORT_GAS === 'true',
+    enabled: process.env.REPORT_GAS.toLowerCase() === 'true',
     currency: 'USD',
   },
   etherscan: {
