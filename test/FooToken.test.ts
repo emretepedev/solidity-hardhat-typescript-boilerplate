@@ -20,8 +20,11 @@ describe(contractName, () => {
   let contract1: Contract;
   let sender: Signer, receiver: Signer;
 
-  beforeEach(async () => {
+  before(async () => {
     [sender, receiver] = await ethers.getSigners();
+  });
+
+  beforeEach(async () => {
     const Contract1: ContractFactory = await ethers.getContractFactory(
       contractName
     );
