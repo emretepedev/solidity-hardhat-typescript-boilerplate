@@ -4,6 +4,7 @@ coverage
 coverage.json
 typechain
 typechain-types
+yarn-error.log
 
 #Hardhat files
 cache
@@ -11,4 +12,3 @@ artifacts
 
 #Tool files
 solbin
-.husky
