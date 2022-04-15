@@ -5,7 +5,7 @@
   "name": "solidity-hardhat-typescript-boilerplate",
   "description": "Solidity Hardhat Typescript Boilerplate",
   "scripts": {
-    "prepare": "husky install; rm -rf .husky/pre-push; husky add .husky/pre-push 'yarn run hook:pre-push'; rm -rf .husky/_/.gitignore",
+    "prepare": "husky install",
     "start": "hardhat node",
     "compile": "hardhat compile",
     "console": "hardhat console",
@@ -16,14 +16,14 @@
     "generate-flatten": "generateFlatten.sh",
     "generate-bin": "generateBin.sh",
     "generate-abi": "generateAbi.sh",
-    "generate-docs": "rm -rf docs/; solidity-docgen --solc-module solc",
-    "auto-generate-docs": "checkSolFilesInCommits.sh && yarn run generate-docs && git add docs/ && git commit -m 'auto: updated docs' -q &>/dev/null;",
-    "format": "prettier '**/{*,''}.{json,js,sol}' --write; eslint '**/{*,''}.{json,js}' --fix; solhint 'contracts/*.sol' --fix;",
+    "generate-docs": "solidity-docgen --solc-module solc",
+    "format": "prettier '**/{*,''}.{json,js,ts,sol}' --write; eslint '**/{*,''}.{json,js,ts}' --fix; solhint 'contracts/*.sol' --fix;",
     "format:json": "prettier '**/{*,''}.json' --write; eslint '**/{*,''}.json' --fix;",
     "format:js": "prettier '**/{*,''}.js' --write; eslint '**/{*,''}.js' --fix;",
+    "format:ts": "prettier '**/{*,''}.ts' --write; eslint '**/{*,''}.ts' --fix;",
     "format:sol": "prettier '**/*.sol' --write; solhint 'contracts/*.sol' --fix;",
-    "lint": "shellcheck bin/*; cspell lint --dot --gitignore '**/{*,''}{.,''}*'; prettier '**/{*,''}.{json,js,sol}' --check; solhint 'contracts/*.sol'; eslint '**/{*,''}.{json,js}';",
-    "hook:pre-push": "shellcheck bin/* && cspell lint --dot --gitignore '**/{*,''}{.,''}*' && prettier '**/{*,''}.{json,js,sol}' --check && solhint 'contracts/*.sol' && eslint '**/{*,''}.{json,js}' && yarn run fresh-test && yarn run auto-generate-docs"
+    "lint": "shellcheck bin/*; cspell lint --dot --gitignore '**/{*,''}{.,''}*'; prettier '**/{*,''}.{json,js,ts,sol}' --check; solhint 'contracts/*.sol'; eslint '**/{*,''}.{json,js,ts}';",
+    "hook:pre-push": "shellcheck bin/* && cspell lint --dot --gitignore '**/{*,''}{.,''}*' && prettier '**/{*,''}.{json,js,ts,sol}' --check && solhint 'contracts/*.sol' && eslint '**/{*,''}.{json,js,ts}'"
   },
   "husky": {
     "hooks": {
