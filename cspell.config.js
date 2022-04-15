@@ -5,18 +5,23 @@ module.exports = {
 
   words: [
     // general
-    'jscoverage',
-    'hdwallet',
     'solcjs',
     'lcov',
     'svmrc',
-    // projects
     'nomiclabs',
+    // projects
   ],
 
   ignoreWords: [],
 
-  ignorePaths: ['.gitignore', 'yarn.lock', 'tags*', '.git', '.vscode'],
+  ignorePaths: [
+    '.gitignore',
+    'yarn.lock',
+    'yarn-error.log',
+    'tags*',
+    '.git',
+    '.vscode',
+  ],
 
   allowCompoundWords: true,
 
