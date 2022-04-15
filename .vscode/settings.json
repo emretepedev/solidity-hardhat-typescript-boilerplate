@@ -44,6 +44,10 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2
   },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
   "[solidity]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 4
@@ -71,12 +75,7 @@
   "emeraldwalk.runonsave": {
     "commands": [
       {
-        "match": "\\.json$",
-        "cmd": "yarn run prettier ${file} --write; yarn run eslint ${file} --fix;",
-        "isAsync": true
-      },
-      {
-        "match": "\\.js$",
+        "match": "\\.(json|js|ts)$",
         "cmd": "yarn run prettier ${file} --write; yarn run eslint ${file} --fix;",
         "isAsync": true
       },
