@@ -21,6 +21,7 @@ module.exports = {
     'tags*',
     '.git',
     '.vscode',
+    'docs',
   ],
 
   allowCompoundWords: true,
