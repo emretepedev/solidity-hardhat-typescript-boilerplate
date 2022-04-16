@@ -1,5 +1,11 @@
 node_modules
+artifacts
+cache
+coverage*
+gasReporterOutput.json
 solbin
 .husky
 typechain
 typechain-types
+docs
+
