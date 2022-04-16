@@ -10,7 +10,7 @@
     "compile": "hardhat compile",
     "console": "hardhat console",
     "test": "hardhat test",
-    "fresh-test": "hardhat compile --force && hardhat test --no-compile",
+    "fresh-test": "yarn run compile --force && yarn run test --no-compile",
     "coverage": "hardhat coverage",
     "analyze": "slither.sh",
     "generate-flatten": "generateFlatten.sh",
