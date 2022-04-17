@@ -14,7 +14,6 @@ import {
 const contractName: string = 'FooToken';
 
 describe(contractName, () => {
-  const value: BigNumber = ethers.BigNumber.from('1');
   let contract: Contract;
   let signer: Signer, signer1: Signer;
   let address: string, address1: string;
@@ -35,26 +34,26 @@ describe(contractName, () => {
     await contract.deployed();
   });
 
-  it('the token name should be correct', () => {
-    contract.name().then((name: string) => {
-      assert.equal(name, 'Foo Token', 'The token name must be valid.');
-    });
+  it('the token name should be correct', async () => {
+    const name: string = await contract.name();
+
+    assert.equal(name, 'Foo Token', 'The token name must be valid.');
   });
 
   it('the token symbol should be correct', async () => {
-    const symbol = await contract.symbol();
+    const symbol: string = await contract.symbol();
 
     assert.equal(symbol, 'FOO', 'The token symbol must be valid.');
   });
 
   it('the token decimal should be correct', async () => {
-    const decimals = await contract.decimals();
+    const decimals: string = await contract.decimals();
 
     assert.equal(decimals, '8', 'The token decimal must be valid.');
   });
 
   it('the token supply should be correct', async () => {
-    const supply = (await contract.totalSupply()).toNumber();
+    const supply: string = await contract.totalSupply();
 
     assert.equal(supply, '100000000000000', 'The token supply must be valid.');
   });
@@ -62,7 +61,7 @@ describe(contractName, () => {
   it('reverts when transferring tokens to the zero address', async () => {
     // Conditions that trigger a require statement can be precisely tested
     await expect(
-      contract.transfer(constants.AddressZero, value, {
+      contract.transfer(constants.AddressZero, constants.One, {
         from: address,
       })
     ).to.be.revertedWith('ERC20: transfer to the zero address');
@@ -70,11 +69,11 @@ describe(contractName, () => {
 
   it('emits a Transfer event on successful transfers', async () => {
     await expect(
-      contract.transfer(address1, value, {
+      contract.transfer(address1, constants.One, {
         from: address,
       })
     )
       .to.emit(contract, 'Transfer')
-      .withArgs(address, address1, value);
+      .withArgs(address, address1, constants.One);
   });
 });
