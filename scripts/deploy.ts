@@ -5,8 +5,6 @@
 // Runtime Environment's members available in the global scope.
 import { ethers } from 'hardhat';
 import { Contract, ContractFactory } from 'ethers';
-import { config } from 'dotenv';
-config();
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -16,21 +14,16 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
-  if (!process.env.CONTRACT_1_NAME)
-    throw Error('CONTRACT_1_NAME is not defined');
-
-  const contractName: string = process.env.CONTRACT_1_NAME;
+  const contractName: string = 'FooToken';
 
   // We get the contract to deploy
-  const Contract1: ContractFactory = await ethers.getContractFactory(
+  const Contract: ContractFactory = await ethers.getContractFactory(
     contractName
   );
-  const contract1: Contract = await Contract1.deploy(
-    process.env.CONTRACT_1_TOKEN_SUPPLY
-  );
-  await contract1.deployed();
+  const contract: Contract = await Contract.deploy('100000000000000');
+  await contract.deployed();
 
-  console.log(contractName + ' deployed to:', contract1.address);
+  console.log(contractName + ' deployed to:', contract.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -5,6 +5,10 @@ import '@nomiclabs/hardhat-waffle';
 import '@typechain/hardhat';
 import 'hardhat-gas-reporter';
 import 'solidity-coverage';
+import 'hardhat-docgen';
+import 'hardhat-abi-exporter';
+import 'hardhat-tracer';
+import 'hardhat-spdx-license-identifier';
 
 dotenv.config();
 
@@ -22,6 +26,12 @@ task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
 // Go to https://hardhat.org/config/ to learn more
 
 const config: HardhatUserConfig = {
+  abiExporter: {
+    path: 'soldata/abi/',
+    runOnCompile: true,
+    clear: true,
+    flat: true,
+  },
   solidity: process.env.SOLIDITY_VERSION || '0.8.7',
   networks: {
     ropsten: {
@@ -29,16 +39,39 @@ const config: HardhatUserConfig = {
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
+    rinkeby: {
+      url: process.env.RINKEBY_URL || '',
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+    bscTestnet: {
+      url: process.env.BSC_TESTNET_URL || '',
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+  },
+  docgen: {
+    path: 'docs/',
+    clear: true,
+    runOnCompile: true,
   },
   gasReporter: {
     enabled:
       process.env.REPORT_GAS !== undefined
         ? process.env.REPORT_GAS.toLowerCase() === 'true'
         : false,
+    coinmarketcap: process.env.COINMARKETCAP_API_KEY || '',
     currency: 'USD',
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+    apiKey: {
+      ropsten: process.env.ETHERSCAN_API_KEY || '',
+      rinkeby: process.env.ETHERSCAN_API_KEY || '',
+      bscTestnet: process.env.BSCSCAN_API_KEY || '',
+    },
+  },
+  spdxLicenseIdentifier: {
+    runOnCompile: true,
   },
 };
 

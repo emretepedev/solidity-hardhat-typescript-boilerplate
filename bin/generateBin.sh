@@ -6,4 +6,4 @@ if [ ! "$1" ]; then
   exit 0
 fi
 
-yarn run solcjs contracts/"$1".sol --bin --base-path node_modules --include-path node_modules --output-dir solbin/bin
+yarn run solcjs contracts/"$1".sol --bin --base-path node_modules -o soldata/bin

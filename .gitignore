@@ -11,4 +11,5 @@ cache
 artifacts
 
 #Tool files
-solbin
+soldata
+docs

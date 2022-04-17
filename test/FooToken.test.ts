@@ -11,89 +11,70 @@ import {
   constants,
 } from 'ethers';
 
-if (!process.env.CONTRACT_1_NAME) throw Error('CONTRACT_1_NAME is not defined');
-
-const contractName: string = process.env.CONTRACT_1_NAME;
+const contractName: string = 'FooToken';
 
 describe(contractName, () => {
   const value: BigNumber = ethers.BigNumber.from('1');
-  let contract1: Contract;
-  let sender: Signer, receiver: Signer;
+  let contract: Contract;
+  let signer: Signer, signer1: Signer;
+  let address: string, address1: string;
 
   before(async () => {
-    [sender, receiver] = await ethers.getSigners();
+    [signer, signer1] = await ethers.getSigners();
+    [address, address1] = [
+      await signer.getAddress(),
+      await signer1.getAddress(),
+    ];
   });
 
   beforeEach(async () => {
-    const Contract1: ContractFactory = await ethers.getContractFactory(
+    const Contract: ContractFactory = await ethers.getContractFactory(
       contractName
     );
-    contract1 = await Contract1.deploy(process.env.CONTRACT_1_TOKEN_SUPPLY);
-    await contract1.deployed();
+    contract = await Contract.deploy('100000000000000');
+    await contract.deployed();
   });
 
   it('the token name should be correct', () => {
-    contract1.name().then((name: string) => {
-      assert.equal(
-        name,
-        process.env.CONTRACT_1_TOKEN_NAME,
-        'The token name must be valid.'
-      );
-      expect;
+    contract.name().then((name: string) => {
+      assert.equal(name, 'Foo Token', 'The token name must be valid.');
     });
   });
 
   it('the token symbol should be correct', async () => {
-    const symbol = await contract1.symbol();
+    const symbol = await contract.symbol();
 
-    assert.equal(
-      symbol,
-      process.env.CONTRACT_1_TOKEN_SYMBOL,
-      'The token symbol must be valid.'
-    );
+    assert.equal(symbol, 'FOO', 'The token symbol must be valid.');
   });
 
   it('the token decimal should be correct', async () => {
-    const decimals = await contract1.decimals();
+    const decimals = await contract.decimals();
 
-    assert.equal(
-      decimals,
-      process.env.CONTRACT_1_TOKEN_DECIMAL,
-      'The token decimal must be valid.'
-    );
+    assert.equal(decimals, '8', 'The token decimal must be valid.');
   });
 
   it('the token supply should be correct', async () => {
-    const supply = (await contract1.totalSupply()).toNumber();
+    const supply = (await contract.totalSupply()).toNumber();
 
-    assert.equal(
-      supply,
-      process.env.CONTRACT_1_TOKEN_SUPPLY,
-      'The token supply must be valid.'
-    );
+    assert.equal(supply, '100000000000000', 'The token supply must be valid.');
   });
 
   it('reverts when transferring tokens to the zero address', async () => {
-    const senderAddress = await sender.getAddress();
-
     // Conditions that trigger a require statement can be precisely tested
     await expect(
-      contract1.transfer(constants.AddressZero, value, {
-        from: senderAddress,
+      contract.transfer(constants.AddressZero, value, {
+        from: address,
       })
     ).to.be.revertedWith('ERC20: transfer to the zero address');
   });
 
   it('emits a Transfer event on successful transfers', async () => {
-    const senderAddress = await sender.getAddress();
-    const receiverAddress = await receiver.getAddress();
-
     await expect(
-      contract1.transfer(receiverAddress, value, {
-        from: senderAddress,
+      contract.transfer(address1, value, {
+        from: address,
       })
     )
-      .to.emit(contract1, 'Transfer')
-      .withArgs(senderAddress, receiverAddress, value);
+      .to.emit(contract, 'Transfer')
+      .withArgs(address, address1, value);
   });
 });

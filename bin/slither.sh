@@ -6,6 +6,4 @@ if [ ! "$1" ]; then
   exit 0
 fi
 
-yarn run compile --force --quiet
-
 slither contracts/"$1".sol

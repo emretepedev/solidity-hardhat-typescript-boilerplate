@@ -3,7 +3,7 @@ artifacts
 cache
 coverage*
 gasReporterOutput.json
-solbin
+soldata
 .husky
 typechain
 typechain-types

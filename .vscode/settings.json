@@ -52,9 +52,14 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 4
   },
-  "cSpell.language": "en",
   "cSpell.diagnosticLevel": "Warning",
-  "cSpell.enableFiletypes": ["dotenv", "dockerfile", "ignore", "shellscript"],
+  "cSpell.enableFiletypes": [
+    "dotenv",
+    "dockerfile",
+    "ignore",
+    "shellscript",
+    "solidity"
+  ],
   "versionlens.caching.duration": 0,
   "versionlens.composer.caching.duration": 0,
   "versionlens.npm.caching.duration": 0,
@@ -86,6 +91,7 @@
       }
     ]
   },
+  "mochaExplorer.files": "test/**/*.test.{js,ts}",
   "solidity.defaultCompiler": "localNodeModule",
   "solidity.enabledAsYouTypeCompilationErrorCheck": false,
   "solidity-va.codelens.drawio.enable": false,
