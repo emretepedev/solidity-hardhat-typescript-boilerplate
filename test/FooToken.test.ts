@@ -1,9 +1,6 @@
-import { config } from 'dotenv';
 import { expect, assert } from 'chai';
 import { ethers } from 'hardhat';
 import { Contract, ContractFactory, Signer, constants } from 'ethers';
-
-config();
 
 const contractName: string = 'FooToken';
 
