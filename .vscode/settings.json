@@ -3,7 +3,12 @@
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
     "**/node_modules/*/**": true,
-    "**/build/*/**": true
+    "**/build/*/**": true,
+    "**/artifacts/*/**": true,
+    "**/cache/*/**": true,
+    "**/coverage/*/**": true,
+    "**/soldata/*/**": true,
+    "**/typechain-types/*/**": true
   },
   "files.associations": {
     "*.json": "javascript",
@@ -24,6 +29,7 @@
   "typescript.format.enable": false,
   "typescript.validate.enable": false,
   "typescript.surveys.enabled": false,
+  "eslint.validate": ["typescript"],
   "[dotenv]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
   },
