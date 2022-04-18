@@ -12,7 +12,7 @@
     "deploy": "deploy.sh",
     "verify": "verify.sh",
     "test": "hardhat test",
-    "fresh-test": "yarn run compile --force && yarn run test --no-compile",
+    "fresh-test": "yarn run compile --force && yarn run test --no-compile --trace",
     "coverage": "hardhat coverage",
     "analyze": "slither.sh",
     "generate-flatten": "generateFlatten.sh",
