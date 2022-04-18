@@ -66,9 +66,9 @@
     "shellscript",
     "solidity"
   ],
-  "versionlens.caching.duration": 0,
-  "versionlens.composer.caching.duration": 0,
-  "versionlens.npm.caching.duration": 0,
+  "versionlens.caching.duration": 1,
+  "versionlens.composer.caching.duration": 1,
+  "versionlens.npm.caching.duration": 1,
   "errorLens.enabledDiagnosticLevels": ["error", "warning"],
   "errorLens.fontWeight": "900",
   "errorLens.margin": "2ch",
@@ -97,18 +97,6 @@
       }
     ]
   },
-  "mochaExplorer.files": "test/**/*.test.{js,ts}",
   "solidity.defaultCompiler": "localNodeModule",
-  "solidity.enabledAsYouTypeCompilationErrorCheck": false,
-  "solidity-va.codelens.drawio.enable": false,
-  "solidity-va.codelens.funcSigs.enable": false,
-  "solidity-va.codelens.uml.enable": false,
-  "solidity-va.codelens.dependencies.enable": false,
-  "solidity-va.codelens.ftrace.enable": false,
-  "solidity-va.outline.decorations": false,
-  "solidity-va.outline.enable": false,
-  "solidity-va.deco.arguments": false,
-  "solidity-va.deco.statevars": false,
-  "solidity-va.whatsNew.disabled": true,
-  "solidity-va.tools.surya.input.contracts": "workspace"
+  "solidity.enabledAsYouTypeCompilationErrorCheck": false
 }

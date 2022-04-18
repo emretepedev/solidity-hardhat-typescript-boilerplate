@@ -21,12 +21,9 @@
     "abumalick.vscode-nvm",
     "eg2.vscode-npm-script",
     "ryanluker.vscode-coverage-gutters",
+    "hbenl.vscode-mocha-test-adapter",
     "juanblanco.solidity",
     "emretepedev.solc-select-vscode",
-    "tintinweb.solidity-visual-auditor",
-    "tintinweb.vscode-solidity-language",
-    "tintinweb.graphviz-interactive-preview",
-    "hbenl.vscode-mocha-test-adapter",
     "trailofbits.slither-vscode"
   ]
 }
