@@ -1,15 +1,25 @@
 node_modules
 .env
+
+# Coverage
 coverage
 coverage.json
+
+# Typescript
 typechain
 typechain-types
-yarn-error.log
 
-#Hardhat files
-cache
+# Logs
+/logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Hardhat files
 artifacts
+cache
 
-#Tool files
+# Auto-generated files
 soldata
 docs

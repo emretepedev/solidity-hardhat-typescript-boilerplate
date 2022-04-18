@@ -16,11 +16,11 @@ module.exports = {
 
   ignorePaths: [
     '.gitignore',
-    'yarn.lock',
-    'yarn-error.log',
-    'tags*',
     '.git',
+    '.husky',
     '.vscode',
+    'yarn.lock',
+    'tags*',
   ],
 
   allowCompoundWords: true,
