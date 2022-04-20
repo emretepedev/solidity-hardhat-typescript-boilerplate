@@ -9,7 +9,14 @@ module.exports = {
     'lcov',
     'svmrc',
     'nomiclabs',
+    'ftmscan',
+    'heco',
+    'hecoinfo',
+    'arbiscan',
+    'arbitrum',
+    'sokol',
     // projects
+    'emretepedev',
   ],
 
   ignoreWords: [],
