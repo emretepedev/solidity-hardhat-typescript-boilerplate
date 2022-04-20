@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": false,
   "name": "solidity-hardhat-typescript-boilerplate",
-  "description": "Solidity Hardhat Typescript Boilerplate",
+  "description": "Solidity Hardhat TypeScript Boilerplate",
   "scripts": {
     "prepare": "husky install",
     "start": "hardhat node",
@@ -33,6 +33,10 @@
       "pre-push": "yarn run hook:pre-push"
     }
   },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {},
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.5",
     "@nomiclabs/hardhat-etherscan": "^3.0.3",
@@ -43,8 +47,8 @@
     "@types/chai": "^4.3.1",
     "@types/mocha": "^9.1.0",
     "@types/node": "^16.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.19.0",
-    "@typescript-eslint/parser": "^5.19.0",
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
     "chai": "^4.3.6",
     "cspell": "^5.19.7",
     "dotenv": "^16.0.0",
