@@ -6,12 +6,15 @@ module.exports = {
     node: true,
   },
 
-  plugins: ['@typescript-eslint', 'json', 'prettier'],
+  plugins: ['@typescript-eslint', 'json', 'promise', 'import', 'prettier'],
 
   extends: [
     'eslint:recommended',
     'plugin:node/recommended',
     'plugin:json/recommended',
+    'plugin:promise/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
     'prettier',
   ],
 
@@ -23,6 +26,16 @@ module.exports = {
 
   rules: {
     'prettier/prettier': 'warn',
+    'import/order': [
+      'warn',
+      {
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
+    'sort-vars': ['warn', { ignoreCase: true }],
     'node/no-unsupported-features/es-syntax': [
       'error',
       { ignores: ['modules'] },
