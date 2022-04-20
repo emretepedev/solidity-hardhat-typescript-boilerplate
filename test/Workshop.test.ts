@@ -1,6 +1,6 @@
 import { expect, assert } from 'chai';
-import { ethers } from 'hardhat';
 import { Contract, ContractFactory, Signer, constants } from 'ethers';
+import { ethers } from 'hardhat';
 
 const contractName: string = 'FooToken';
 
