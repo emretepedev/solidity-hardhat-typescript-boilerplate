@@ -2,6 +2,9 @@ name: cd
 
 on: [push, pull_request]
 
+env:
+  SOLC_VERSION: ${{ secrets.SOLC_VERSION }}
+
 jobs:
   cd:
     runs-on: ${{ matrix.os }}
@@ -28,12 +31,17 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
 
-      - name: Install Python Tools
+      - name: Install Python tools & solc
         run: |
           sudo apt-get -y install libssl-dev python3-dev python3-pip
           pip3 install solc-select
           pip3 install slither-analyzer
           pip3 install mythril
+
+      - name: Setup Solc
+        run: |
+          solc-select install ${{ env.SOLC_VERSION }}
+          solc-select use ${{ env.SOLC_VERSION }}
 
       - name: Setup Node
         uses: actions/setup-node@v2
@@ -43,16 +51,19 @@ jobs:
       - name: Install dependencies with dev deps
         run: yarn install --production=false
 
-      - name: Hardhat compile & test
+      - name: Hardhat compile & test with coverage
         run: yarn run coverage
 
       - name: Linters & Formatters
         run: yarn run hook:pre-push
 
       - name: Analyze
-        run: slither contracts && myth analyze --solc-json mythril.config.json contracts/*
+        run: slither contracts/ && myth analyze --solc-json mythril.config.json contracts/*
 
-      - name: Update docs and push to remote
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+
+      - name: Push to remote some necessary files
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -64,12 +75,6 @@ jobs:
           git commit -m "auto: updated ABIs"
 
           git push
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
-
-      - name: Update coverage badges
-        run: yarn run generate-badges
 
       - name: Create a GitHub release
         uses: softprops/action-gh-release@v1

@@ -4,16 +4,16 @@ if [ "$1" ]; then
   solc-select install "$1"
   solc-select use "$1"
 elif [ -f ".svmrc" ]; then
-  SOLIDITY_VERSION=$(cat .svmrc)
+  SOLC_VERSION=$(cat .svmrc)
 
-  solc-select install "$SOLIDITY_VERSION"
-  solc-select use "$SOLIDITY_VERSION"
+  solc-select install "$SOLC_VERSION"
+  solc-select use "$SOLC_VERSION"
 elif [ -f ".env" ]; then
   # shellcheck source=../.env
   source ".env"
 
-  solc-select install "$SOLIDITY_VERSION"
-  solc-select use "$SOLIDITY_VERSION"
+  solc-select install "$SOLC_VERSION"
+  solc-select use "$SOLC_VERSION"
 else
   echo "Cannot find .svmrc or .env file. Fix and re-run the 'svm'."
   exit 0

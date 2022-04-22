@@ -32,7 +32,7 @@ function getWallet(): Array<string> {
 // Go to https://hardhat.org/config/ to learn more
 
 const config: HardhatUserConfig = {
-  solidity: process.env.SOLIDITY_VERSION || '0.8.7',
+  solidity: process.env.SOLC_VERSION || '0.8.7',
   abiExporter: {
     path: './soldata/abi',
     runOnCompile: true,
