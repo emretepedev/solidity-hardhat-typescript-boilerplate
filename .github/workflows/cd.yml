@@ -63,19 +63,6 @@ jobs:
       - name: Analyze
         run: slither contracts/ && myth analyze --solc-json mythril.config.json contracts/*.sol
 
-      - name: Push to remote some necessary files
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-          git add -f docs/
-          git commit -m "auto: updated docs"
-
-          git add -f soldata/abi/
-          git commit -m "auto: updated ABIs"
-
-          git push
-
       - name: Create a GitHub release
         uses: softprops/action-gh-release@v1
         with:
