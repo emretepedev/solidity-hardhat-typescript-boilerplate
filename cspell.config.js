@@ -15,6 +15,7 @@ module.exports = {
     'arbiscan',
     'arbitrum',
     'sokol',
+    'mythril',
     // projects
     'emretepedev',
   ],
