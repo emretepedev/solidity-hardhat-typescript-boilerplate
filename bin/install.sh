@@ -12,5 +12,5 @@ pip3 install slither-analyzer
 # Install Mythril
 pip3 install mythril
 
-# Detect SOLC VERSION
+# Detect Solc version
 svm

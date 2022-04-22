@@ -2,16 +2,16 @@ import { Contract, ContractFactory } from 'ethers';
 import { ethers } from 'hardhat';
 
 async function main() {
-  const contractName: string = 'Workshop';
+  const name: string = 'Workshop';
   const constructorArgs: Array<string | number> = ['100000000000000'];
 
-  const Contract: ContractFactory = await ethers.getContractFactory(
-    contractName
+  const contractFactory: ContractFactory = await ethers.getContractFactory(
+    name
   );
-  const contract: Contract = await Contract.deploy(...constructorArgs);
+  const contract: Contract = await contractFactory.deploy(...constructorArgs);
   await contract.deployed();
 
-  console.log(contractName + ' deployed to:', contract.address);
+  console.log(name + ' deployed to:', contract.address);
 }
 
 main().catch((error) => {
