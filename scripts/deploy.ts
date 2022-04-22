@@ -14,16 +14,16 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
-  const contractName: string = 'FooToken';
-
   // We get the contract to deploy
-  const Contract: ContractFactory = await ethers.getContractFactory(
-    contractName
+  const workshop: string = 'Workshop';
+  const workshopConstructorArgs: Array<string | number> = ['100000000000000'];
+  const workshopContractFactory: ContractFactory =
+    await ethers.getContractFactory(workshop);
+  const workshopContract: Contract = await workshopContractFactory.deploy(
+    ...workshopConstructorArgs
   );
-  const contract: Contract = await Contract.deploy('100000000000000');
-  await contract.deployed();
-
-  console.log(contractName + ' deployed to:', contract.address);
+  await workshopContract.deployed();
+  console.log(workshop + ' deployed to:', workshopContract.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

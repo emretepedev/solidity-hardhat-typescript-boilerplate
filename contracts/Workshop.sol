@@ -13,7 +13,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
  * @notice The token which is one ERC20 standard
  * @custom:note This is an example workshop for a quick start
  */
-contract FooToken is ERC20 {
+contract Workshop is ERC20 {
     /**
      * @notice This event is triggered when the contract is deployed
      * @dev This event will trigger only once
@@ -40,7 +40,7 @@ contract FooToken is ERC20 {
      * @return The decimals of the token
      * @inheritdoc ERC20
      */
-    function decimals() public pure override returns (uint8) {
+    function decimals() public pure override(ERC20) returns (uint8) {
         return 8;
     }
 }
