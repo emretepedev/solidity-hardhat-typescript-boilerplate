@@ -10,7 +10,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         node: [16.x]
-        python: [3.8.13]
+        python: [3.8]
 
     steps:
       - uses: actions/checkout@v2
