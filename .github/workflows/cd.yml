@@ -13,7 +13,7 @@ jobs:
         python: [3.x]
 
     steps:
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Bump version and push tag
         id: tag_version
@@ -66,6 +66,9 @@ jobs:
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
+
+      - name: Update coverage badges
+        run: yarn run generate-badges
 
       - name: Create a GitHub release
         uses: softprops/action-gh-release@v1
