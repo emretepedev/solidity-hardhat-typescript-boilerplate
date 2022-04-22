@@ -61,7 +61,7 @@ jobs:
         run: yarn run hook:pre-push
 
       - name: Analyze
-        run: slither contracts/ && myth analyze --solc-json mythril.config.json contracts/*.sol
+        run: slither contracts/ # && myth analyze --solc-json mythril.config.json contracts/*.sol
 
       - name: Create a GitHub release
         uses: softprops/action-gh-release@v1
