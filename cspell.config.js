@@ -25,6 +25,7 @@ module.exports = {
   ignorePaths: [
     '.gitignore',
     '.git',
+    '.github',
     '.husky',
     '.vscode',
     'yarn.lock',

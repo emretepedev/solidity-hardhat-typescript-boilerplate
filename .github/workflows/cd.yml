@@ -1,0 +1,74 @@
+name: cd
+
+on: [push, pull_request]
+
+jobs:
+  cd:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [16.x]
+        python: [3.x]
+
+    steps:
+        uses: actions/checkout@v2
+
+      - name: Bump version and push tag
+        id: tag_version
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DEFAULT_BUMP: none
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install Python Tools
+        run: |
+          pip3 install solc-select
+          pip3 install slither-analyzer
+          pip3 install mythril
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies with dev deps
+        run: yarn install --production=false
+
+      - name: Hardhat compile & test
+        run: yarn run coverage
+
+      - name: Linters & Formatters
+        run: yarn run hook:pre-push
+
+      - name: Analyze
+        run: slither contracts && myth analyze --solc-json mythril.config.json contracts/*
+
+      - name: Update docs and push to remote
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add -f docs/
+          git commit -m "auto: updated docs"
+
+          git add -f soldata/abi/
+          git commit -m "auto: updated ABIs"
+
+          git push
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+
+      - name: Create a GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          tag_name: ${{ steps.tag_version.outputs.new_tag }}
