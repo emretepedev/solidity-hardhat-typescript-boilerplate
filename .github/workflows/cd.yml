@@ -61,7 +61,7 @@ jobs:
         run: yarn run hook:pre-push
 
       - name: Analyze
-        run: slither contracts/ && myth analyze --solc-json mythril.config.json contracts/*
+        run: slither contracts/ && myth analyze --solc-json mythril.config.json contracts/*.sol
 
       - name: Push to remote some necessary files
         run: |
