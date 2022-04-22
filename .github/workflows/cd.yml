@@ -71,3 +71,4 @@ jobs:
         with:
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           tag_name: ${{ steps.tag_version.outputs.new_tag }}
+          target_commitish: ${{ github.sha }}
