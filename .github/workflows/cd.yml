@@ -30,6 +30,7 @@ jobs:
 
       - name: Install Python Tools
         run: |
+          sudo apt-get -y install libssl-dev python3-dev python3-pip
           pip3 install solc-select
           pip3 install slither-analyzer
           pip3 install mythril
