@@ -87,6 +87,7 @@
   "errorLens.gutterIconsFollowCursorOverride": false,
   "errorLens.onSave": true,
   "coverage-gutters.showLineCoverage": true,
+  "redhat.telemetry.enabled": false,
   "emeraldwalk.runonsave": {
     "commands": [
       {
