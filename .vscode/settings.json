@@ -30,31 +30,10 @@
   "typescript.validate.enable": false,
   "typescript.surveys.enabled": false,
   "eslint.validate": ["typescript"],
-  "[dotenv]": {
+  "[dotenv][ignore][shellscript][dockerfile]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
   },
-  "[ignore]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
-  },
-  "[shellscript]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
-  },
-  "[dockerfile]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
-  },
-  "[yaml]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.tabSize": 2
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.tabSize": 2
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.tabSize": 2
-  },
-  "[typescript]": {
+  "[yaml][json][jsonc][javascript][typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2
   },

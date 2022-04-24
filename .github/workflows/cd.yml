@@ -18,16 +18,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: '0'
-
-      - name: Bump version and push tag
-        id: tag_version
-        uses: anothrNick/github-tag-action@1.36.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
-          DEFAULT_BUMP: none
 
       - name: Setup Python
         uses: actions/setup-python@v3
@@ -64,10 +54,4 @@ jobs:
         run: yarn run hook:pre-push
 
       - name: Analyze
-        run: slither contracts/ # && myth analyze --solc-json mythril.config.json contracts/*.sol
-
-      - name: Create a GitHub release
-        uses: softprops/action-gh-release@v1
-        with:
-          name: Release ${{ steps.tag_version.outputs.new_tag }}
-          tag_name: ${{ steps.tag_version.outputs.new_tag }}
+        run: slither contracts/ && myth analyze --solc-json mythril.config.json contracts/*.sol

@@ -9,15 +9,15 @@ module.exports = {
     'lcov',
     'svmrc',
     'nomiclabs',
+    'mythril',
+    'sloads',
     'ftmscan',
     'heco',
     'hecoinfo',
     'arbiscan',
     'arbitrum',
     'sokol',
-    'mythril',
     // projects
-    'emretepedev',
     'ierc',
   ],
 

@@ -11,11 +11,11 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 /**
- * @title ERC20 FooToken Contract
- * @author emretepedev
+ * @title Workshop Contract
+ * @author <AUTHOR>
  * @notice The token which is one ERC20 standard
  * @custom:note This is an example workshop for a quick start
- * The goal is to provide diversity
+ * The main goal is to provide diversity. There is no logic
  */
 contract Workshop is Context {
     // usings
@@ -31,16 +31,16 @@ contract Workshop is Context {
     }
 
     // structs
+    struct Bar {
+        uint256 barId;
+        Foo[] foos;
+    }
+
     struct Foo {
         string name;
         bool telemetry;
         uint256[4] luckyNumbers;
         Status status;
-    }
-
-    struct Bar {
-        uint256 barId;
-        Foo[] foos;
     }
 
     // mappings
@@ -59,9 +59,9 @@ contract Workshop is Context {
     /**
      * @notice This event is triggered when the bar added
      * @dev Just emit only when the bar added
-     * @param name The name value of the Bar
+     * @param name The name value of the Foo
      * @param telemetry Indicates whether it is accepted or not
-     * @param luckyNumbers The lucky numbers of the Bar
+     * @param luckyNumbers The lucky numbers of the Foo
      */
     event BarCreated(string name, bool telemetry, uint256[4] luckyNumbers, address indexed owner);
 
