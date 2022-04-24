@@ -15,27 +15,19 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const contract1Name: string = 'FooToken';
-  const contract1ConstructorArgs: Array<string | number> = ['100000000000000'];
-  const contract1Factory: ContractFactory = await ethers.getContractFactory(
-    contract1Name
-  );
-  const contract1: Contract = await contract1Factory.deploy(
-    ...contract1ConstructorArgs
-  );
-  await contract1.deployed();
-  console.log(contract1Name + ' deployed to:', contract1.address);
+  const c1Name: string = 'FooToken';
+  const c1ConstructorArgs: Array<string | number> = ['100000000000000'];
+  const c1Factory: ContractFactory = await ethers.getContractFactory(c1Name);
+  const c1: Contract = await c1Factory.deploy(...c1ConstructorArgs);
+  await c1.deployed();
+  console.log(c1Name + ' deployed to:', c1.address);
 
-  const contract2Name: string = 'Workshop';
-  const contract2ConstructorArgs: Array<string | number> = [contract1.address];
-  const contract2Factory: ContractFactory = await ethers.getContractFactory(
-    contract2Name
-  );
-  const contract2: Contract = await contract2Factory.deploy(
-    ...contract2ConstructorArgs
-  );
-  await contract2.deployed();
-  console.log(contract2Name + ' deployed to:', contract2.address);
+  const c2Name: string = 'Workshop';
+  const c2ConstructorArgs: Array<string | number> = [c1.address];
+  const c2Factory: ContractFactory = await ethers.getContractFactory(c2Name);
+  const c2: Contract = await c2Factory.deploy(...c2ConstructorArgs);
+  await c2.deployed();
+  console.log(c2Name + ' deployed to:', c2.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

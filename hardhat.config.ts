@@ -12,6 +12,12 @@ import 'hardhat-spdx-license-identifier';
 
 dotenv.config();
 
+function getWallet(): Array<string> {
+  return process.env.DEPLOYER_WALLET_PRIVATE_KEY !== undefined
+    ? [process.env.DEPLOYER_WALLET_PRIVATE_KEY]
+    : [];
+}
+
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
 task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
@@ -22,15 +28,8 @@ task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
   }
 });
 
-function getWallet(): Array<string> {
-  return process.env.DEPLOYER_WALLET_PRIVATE_KEY !== undefined
-    ? [process.env.DEPLOYER_WALLET_PRIVATE_KEY]
-    : [];
-}
-
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
-
 const config: HardhatUserConfig = {
   solidity: process.env.SOLC_VERSION || '0.8.7',
   abiExporter: {

@@ -19,10 +19,8 @@ describe(name, () => {
   });
 
   beforeEach(async () => {
-    const contractFactory: ContractFactory = await ethers.getContractFactory(
-      name
-    );
-    contract = await contractFactory.deploy(...constructorArgs);
+    const factory: ContractFactory = await ethers.getContractFactory(name);
+    contract = await factory.deploy(...constructorArgs);
     await contract.deployed();
   });
 
