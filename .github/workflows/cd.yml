@@ -13,7 +13,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         node: [16.x]
-        python: [3.8]
+        python: [3.8.x]
 
     steps:
       - name: Checkout
@@ -71,4 +71,3 @@ jobs:
         with:
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           tag_name: ${{ steps.tag_version.outputs.new_tag }}
-          target_commitish: ${{ github.sha }}

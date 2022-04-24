@@ -15,15 +15,15 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const workshop: string = 'Workshop';
-  const workshopConstructorArgs: Array<string | number> = ['100000000000000'];
-  const workshopContractFactory: ContractFactory =
-    await ethers.getContractFactory(workshop);
-  const workshopContract: Contract = await workshopContractFactory.deploy(
-    ...workshopConstructorArgs
+  const contract1: string = 'Workshop';
+  const contract1ConstructorArgs: Array<string | number> = ['100000000000000'];
+  const contract1ContractFactory: ContractFactory =
+    await ethers.getContractFactory(contract1);
+  const contract1Contract: Contract = await contract1ContractFactory.deploy(
+    ...contract1ConstructorArgs
   );
-  await workshopContract.deployed();
-  console.log(workshop + ' deployed to:', workshopContract.address);
+  await contract1Contract.deployed();
+  console.log(contract1 + ' deployed to:', contract1Contract.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
