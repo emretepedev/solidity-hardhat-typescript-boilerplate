@@ -38,7 +38,7 @@
     "editor.tabSize": 2
   },
   "[solidity]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "NomicFoundation.hardhat-solidity",
     "editor.tabSize": 4
   },
   "cSpell.diagnosticLevel": "Warning",
@@ -81,6 +81,7 @@
       }
     ]
   },
+  "hardhat.telemetry": false,
   "solidity.defaultCompiler": "localNodeModule",
   "solidity.enabledAsYouTypeCompilationErrorCheck": false
 }

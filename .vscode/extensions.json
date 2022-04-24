@@ -25,6 +25,7 @@
     "hbenl.vscode-mocha-test-adapter",
     "juanblanco.solidity",
     "emretepedev.solc-select-vscode",
+    "NomicFoundation.hardhat-solidity",
     "trailofbits.slither-vscode"
   ]
 }
