@@ -5,8 +5,10 @@ pragma solidity ^0.8.4;
 // @TODO: console.log() remove that before deployment
 // import "hardhat/console.sol";
 
+import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/utils/Context.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 /**
  * @title ERC20 FooToken Contract
@@ -17,6 +19,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
  */
 contract Workshop is Context {
     // usings
+    using Address for address;
     using Counters for Counters.Counter;
 
     // enums
@@ -29,81 +32,128 @@ contract Workshop is Context {
 
     // structs
     struct Foo {
-        uint256 barId;
-        string bar0;
-        bool bar1;
+        string name;
+        bool telemetry;
+        uint256[4] luckyNumbers;
         Status status;
     }
 
     struct Bar {
+        uint256 barId;
         Foo[] foos;
     }
 
     // mappings
-    mapping(address => Bar) internal bars;
+    mapping(address => Bar) private _userBar;
 
     // variables
+    uint8 public constant MAX_FOO_NAME_LEN = 255;
+    uint8 public constant MIN_FOO_NAME_LEN = 1;
+
+    IERC20 public immutable token;
+
     Counters.Counter private _barId;
-    Bar[] internal bars_;
+    Bar[] private _bars;
 
+    // events
     /**
-     * @notice This event is triggered when the contract is deployed
-     * @dev This event will trigger only once
-     * @param deployer The address of the contract deployer
-     * @param timestamp The timestamp when the contract was deployed
+     * @notice This event is triggered when the bar added
+     * @dev Just emit only when the bar added
+     * @param name The name value of the Bar
+     * @param telemetry Indicates whether it is accepted or not
+     * @param luckyNumbers The lucky numbers of the Bar
      */
-    event ContractDeployed(address deployer, uint256 timestamp);
+    event BarCreated(string name, bool telemetry, uint256[4] luckyNumbers, address indexed owner);
 
-    error ValueNotPositive(string reason);
+    // errors
+    /**
+     * @notice This error is triggered when the bar name is in an invalid range
+     * @dev minLength equals to MIN_FOO_NAME_LEN and maxLength equals to MAX_FOO_NAME_LEN
+     * @param reason The reason for the error
+     * @param minLength Minimum accepted length
+     * @param maxLength Maximum accepted length
+     */
+    error NameLengthError(string reason, uint8 minLength, uint8 maxLength);
 
-    modifier onlyPositive(uint256 value) {
-        if (!(value > 0)) revert ValueNotPositive("Value must be greater than 0");
+    // modifiers
+    modifier onlyFooNameLenInRange(uint256 nameLength) {
+        if (MIN_FOO_NAME_LEN > nameLength || MAX_FOO_NAME_LEN < nameLength)
+            revert NameLengthError({
+                reason: "The name length must be in the range",
+                minLength: MIN_FOO_NAME_LEN,
+                maxLength: MAX_FOO_NAME_LEN
+            });
         _;
     }
 
-    constructor(uint256 initialSupply) onlyPositive(initialSupply) {
-        /* solhint-disable-next-line not-rely-on-time */
-        emit ContractDeployed(_msgSender(), block.timestamp);
+    // constructor
+    constructor(address tokenAddress) {
+        // solhint-disable-next-line reason-string
+        require(tokenAddress.isContract(), "Address must be a Contract Address");
+
+        token = IERC20(tokenAddress);
     }
 
+    // write functions
     /**
      * @notice Add the new Bar
-     * @param bar0 String value to Bar
-     * @param bar1 Boolean value to Bar
+     * @param name The name value of the Bar
+     * @param telemetry Indicates whether it is accepted or not
+     * @param luckyNumbers The lucky numbers of the Bar
      */
-    function addBar(string memory bar0, bool bar1) external {
-        Bar storage bar = bars[_msgSender()];
+    function addBar(
+        string memory name,
+        bool telemetry,
+        uint256[4] memory luckyNumbers
+    ) external onlyFooNameLenInRange(bytes(name).length) {
+        Bar storage bar = _userBar[_msgSender()];
+        bar.barId = _barId.current();
+        _barId.increment();
 
         bar.foos.push(
-            Foo({ barId: _barId.current(), bar0: bar0, bar1: bar1, status: Status.StepOne })
+            Foo({
+                name: name,
+                telemetry: telemetry,
+                luckyNumbers: luckyNumbers,
+                status: Status.StepOne
+            })
         );
 
-        bars_.push(bar);
+        _bars.push(bar);
 
-        _barId.increment();
+        emit BarCreated({
+            name: name,
+            telemetry: telemetry,
+            luckyNumbers: luckyNumbers,
+            owner: _msgSender()
+        });
     }
 
+    // read functions
     /**
      * @notice Get the Bars
+     * @return Gives all Bars
      */
     function getBars() external view returns (Bar[] memory) {
-        return bars_;
+        return _bars;
     }
 
     /**
      * @notice Get the Foos of Bar
      * @param barId ID of the Bar
+     * @return Gives all Foos of the given Bar
      */
     function getBarFoos(uint256 barId) external view returns (Foo[] memory) {
-        return bars_[barId].foos;
+        return _bars[barId].foos;
     }
 
     /**
      * @notice Get the Foo of Bar
      * @param barId ID of the Bar
      * @param fooId ID of the Foo
+     * @return Gives Foo of the given Bar
      */
     function getBarFoo(uint256 barId, uint256 fooId) external view returns (Foo memory) {
-        return bars_[barId].foos[fooId];
+        return _bars[barId].foos[fooId];
     }
 }

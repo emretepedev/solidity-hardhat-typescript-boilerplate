@@ -18,6 +18,7 @@ module.exports = {
     'mythril',
     // projects
     'emretepedev',
+    'ierc',
   ],
 
   ignoreWords: [],

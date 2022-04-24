@@ -2,7 +2,7 @@ import { expect, assert } from 'chai';
 import { Contract, ContractFactory, Signer, constants } from 'ethers';
 import { ethers } from 'hardhat';
 
-const name: string = 'Workshop';
+const name: string = 'FooToken';
 const constructorArgs: Array<string | number> = ['100000000000000'];
 
 describe(name, () => {
@@ -41,7 +41,7 @@ describe(name, () => {
   it('the token decimal should be correct', async () => {
     const decimals: string = await contract.decimals();
 
-    assert.equal(decimals, '8', 'The token decimal must be valid.');
+    assert.equal(decimals, '1', 'The token decimal must be valid.');
   });
 
   it('the token supply should be correct', async () => {

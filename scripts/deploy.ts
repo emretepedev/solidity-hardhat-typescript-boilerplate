@@ -15,15 +15,27 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const contract1: string = 'Workshop';
+  const contract1Name: string = 'FooToken';
   const contract1ConstructorArgs: Array<string | number> = ['100000000000000'];
-  const contract1ContractFactory: ContractFactory =
-    await ethers.getContractFactory(contract1);
-  const contract1Contract: Contract = await contract1ContractFactory.deploy(
+  const contract1Factory: ContractFactory = await ethers.getContractFactory(
+    contract1Name
+  );
+  const contract1: Contract = await contract1Factory.deploy(
     ...contract1ConstructorArgs
   );
-  await contract1Contract.deployed();
-  console.log(contract1 + ' deployed to:', contract1Contract.address);
+  await contract1.deployed();
+  console.log(contract1Name + ' deployed to:', contract1.address);
+
+  const contract2Name: string = 'Workshop';
+  const contract2ConstructorArgs: Array<string | number> = [contract1.address];
+  const contract2Factory: ContractFactory = await ethers.getContractFactory(
+    contract2Name
+  );
+  const contract2: Contract = await contract2Factory.deploy(
+    ...contract2ConstructorArgs
+  );
+  await contract2.deployed();
+  console.log(contract2Name + ' deployed to:', contract2.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

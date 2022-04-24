@@ -2,7 +2,7 @@ import { Contract, ContractFactory } from 'ethers';
 import { ethers } from 'hardhat';
 
 async function main() {
-  const name: string = 'Workshop';
+  const name: string = 'FooToken';
   const constructorArgs: Array<string | number> = ['100000000000000'];
 
   const contractFactory: ContractFactory = await ethers.getContractFactory(
