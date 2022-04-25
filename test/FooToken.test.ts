@@ -1,6 +1,6 @@
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { expect, assert } from 'chai';
-import { Contract, ContractFactory, constants } from 'ethers';
+import { Contract, ContractFactory, constants, BigNumber } from 'ethers';
 import { ethers } from 'hardhat';
 
 const name: string = 'FooToken';
@@ -36,11 +36,15 @@ describe(name, () => {
   });
 
   it('the token decimal should be correct', async () => {
-    expect(await contract.decimals()).to.equal(1);
+    const expectedDecimals: BigNumber = BigNumber.from(1);
+
+    expect(await contract.decimals()).to.equal(expectedDecimals);
   });
 
   it('the token supply should be correct', async () => {
-    expect(await contract.totalSupply()).to.equal('100000000000000');
+    const expectedSupply = BigNumber.from('100000000000000');
+
+    expect(await contract.totalSupply()).to.equal(expectedSupply);
   });
 
   it('reverts when transferring tokens to the zero address', async () => {
