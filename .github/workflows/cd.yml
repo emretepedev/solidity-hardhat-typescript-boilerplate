@@ -31,12 +31,12 @@ jobs:
           python-version: ${{ matrix.python }}
 
       - name: Install Analyzer tools
+        if: steps.verify-changed-sol-files.outputs.files_changed == 'true'
         run: |
           pip3 install slither-analyzer
           pip3 install mythril
 
       - name: Setup Solc
-        if: steps.verify-changed-sol-files.outputs.files_changed == 'true'
         run: |
           sudo apt-get -y install libssl-dev python3-dev python3-pip
           pip3 install solc-select
