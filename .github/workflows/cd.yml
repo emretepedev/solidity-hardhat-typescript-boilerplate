@@ -19,20 +19,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Verify Changed sol files in the contracts directory
+        uses: tj-actions/verify-changed-files@v9
+        id: verify-changed-sol-files
+        with:
+          files: contracts/*.sol
+
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python }}
 
-      - name: Install Python tools
+      - name: Install Analyzer tools
         run: |
-          sudo apt-get -y install libssl-dev python3-dev python3-pip
-          pip3 install solc-select
           pip3 install slither-analyzer
           pip3 install mythril
 
       - name: Setup Solc
+        if: steps.verify-changed-sol-files.outputs.files_changed == 'true'
         run: |
+          sudo apt-get -y install libssl-dev python3-dev python3-pip
+          pip3 install solc-select
+
           solc-select install ${{ env.SOLC_VERSION }}
           solc-select use ${{ env.SOLC_VERSION }}
 
@@ -53,5 +61,6 @@ jobs:
       - name: Linters & Formatters
         run: yarn run hook:pre-push
 
-      - name: Analyze
+      - name: Analyze to contracts
+        if: steps.verify-changed-sol-files.outputs.files_changed == 'true'
         run: slither contracts/ && myth analyze --solc-json mythril.config.json contracts/*.sol
