@@ -19,10 +19,9 @@ Don't forget to copy the .env.example file to a file named .env, and then edit i
 
 ```shell
 yarn run test
-yarn run test --trace      # shows logs + calls
-yarn run test --fulltrace  # shows logs + calls + sloads + sstores
-yarn run fresh-test        # force compile and then run tests
-yarn run coverage          # run tests with coverage reports
+yarn run test:trace       # shows logs + calls
+yarn run test:fresh       # force compile and then run tests
+yarn run test:coverage    # run tests with coverage reports
 ```
 
 # Formatters & Linters
@@ -50,9 +49,9 @@ You can use the below tools,
 ```shell
 install.sh (if slither or mythril is not installed)
 
-yarn run analyze:static <CONTRACT_NAME> # (contracts/<CONTRACT_NAME>.sol)
-yarn run analyze:security <CONTRACT_NAME> # (contracts/<CONTRACT_NAME>.sol)
-yarn run analyze <CONTRACT_NAME> # both (contracts/<CONTRACT_NAME>.sol)
+yarn run analyze:static <CONTRACT>
+yarn run analyze:security <CONTRACT>
+yarn run analyze:all <CONTRACT>
 ```
 
 # Deploy Contract & Verification
@@ -68,27 +67,27 @@ In this project, copy the .env.example file to a file named .env, and then edit 
 With a valid .env file in place, first deploy your contract:
 
 ```shell
-yarn run deploy ropsten <CONTRACT_NAME> # it checks to scripts/deploy/<CONTRACT_NAME>.ts
-yarn run deploy:all ropsten # it checks to scripts/deploy.ts
+yarn run deploy ropsten <CONTRACT>    # related to scripts/deploy/<CONTRACT>.ts
+yarn run deploy:all ropsten           # related to scripts/deploy.ts
 ```
 
 And then verify it:
 
 ```shell
-yarn run verify ropsten <DEPLOYED_CONTRACT_ADDRESS> <CONSTRUCTOR_ARGUMENT(S)> # checkout the hardhat.config.ts for all networks
+yarn run verify ropsten <DEPLOYED_CONTRACT_ADDRESS> <CONSTRUCTOR_ARGUMENT(S)>    # hardhat.config.ts to see all networks
 ```
 
 # Miscellaneous
 
 ```shell
-yarn run generate-docs # generate docs. it checks to /contracts folder
+yarn run generate:docs    # generate docs. it checks to /contracts folder
 ```
 
 ```shell
 install.sh (if slither is not installed)
-yarn run generate-flatten <CONTRACT_NAME> # generate flatten file
-yarn run generate-abi <CONTRACT_NAME> # generate ABI file
-yarn run generate-bin <CONTRACT_NAME> # generate binary in hex
+yarn run generate:flatten <CONTRACT>    # generate flatten file
+yarn run generate:abi <CONTRACT>        # generate ABI file
+yarn run generate:bin <CONTRACT>        # generate binary in hex
 ```
 
 # TODO
@@ -96,3 +95,4 @@ yarn run generate-bin <CONTRACT_NAME> # generate binary in hex
 - Dockerize to .sh files (for compatibility with all OS)
 - Tenderly Implementation
 - Increase diversity in Workshop file
+- Add npm scripts to linters
