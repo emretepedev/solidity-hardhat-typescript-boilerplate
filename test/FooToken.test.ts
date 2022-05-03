@@ -1,5 +1,6 @@
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { expect, assert } from 'chai';
+import { loadFixture } from 'ethereum-waffle';
 import { Contract, ContractFactory, constants, BigNumber } from 'ethers';
 import { ethers } from 'hardhat';
 
@@ -10,15 +11,19 @@ describe(name, () => {
   let contract: Contract;
   let owner: SignerWithAddress;
   let addresses: SignerWithAddress[];
+  let factory: ContractFactory;
+
+  async function transferFixture() {
+    await contract.transfer(addresses[0].address, constants.Two);
+  }
 
   before(async () => {
     [owner, ...addresses] = await ethers.getSigners();
+    factory = await ethers.getContractFactory(name);
   });
 
   beforeEach(async () => {
-    const factory: ContractFactory = await ethers.getContractFactory(name);
     contract = await factory.deploy(...constructorArgs);
-    await contract.deployed();
   });
 
   it('the token name should be correct', async () => {
@@ -36,36 +41,41 @@ describe(name, () => {
   });
 
   it('the token decimal should be correct', async () => {
-    const expectedDecimals: BigNumber = BigNumber.from(1);
-
-    expect(await contract.decimals()).to.equal(expectedDecimals);
+    expect(await contract.decimals()).to.equal(BigNumber.from(1));
   });
 
   it('the token supply should be correct', async () => {
-    const expectedSupply = BigNumber.from('100000000000000');
-
-    expect(await contract.totalSupply()).to.equal(expectedSupply);
+    expect(await contract.totalSupply()).to.equal(
+      BigNumber.from('100000000000000')
+    );
   });
 
   it('reverts when transferring tokens to the zero address', async () => {
     // Conditions that trigger a require statement can be precisely tested
     await expect(
-      contract.transfer(constants.AddressZero, constants.One, {
-        from: owner.address,
-      })
+      contract.transfer(constants.AddressZero, constants.One)
     ).to.be.revertedWith('ERC20: transfer to the zero address');
   });
 
   it('emits a Transfer event on successful transfers', async () => {
-    const from: string = owner.address;
-    const to: string = addresses[0].address;
+    const from: SignerWithAddress = owner;
+    const to: SignerWithAddress = addresses[0];
+    const value: BigNumber = constants.One;
 
-    await expect(
-      contract.transfer(to, constants.One, {
-        from,
-      })
-    )
+    await expect(contract.transfer(to.address, value))
       .to.emit(contract, 'Transfer')
-      .withArgs(from, to, constants.One);
+      .withArgs(from.address, to.address, value);
+  });
+
+  it('token balance successfully changed', async () => {
+    const from: SignerWithAddress = owner;
+    const to: SignerWithAddress = addresses[0];
+    const value: BigNumber = constants.Two;
+
+    await expect(() => loadFixture(transferFixture)).to.changeTokenBalances(
+      contract,
+      [from, to],
+      [-value, value]
+    );
   });
 });
