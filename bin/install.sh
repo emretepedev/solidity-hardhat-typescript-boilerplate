@@ -9,8 +9,5 @@ pip3 install solc-select
 # Install Slither
 pip3 install slither-analyzer
 
-# Install Mythril
-pip3 install mythril
-
 # Detect Solc version
 svm

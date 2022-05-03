@@ -4,13 +4,15 @@
 | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | ![Statements](https://img.shields.io/badge/statements-100%25-brightgreen.svg?style=flat) | ![Functions](https://img.shields.io/badge/functions-100%25-brightgreen.svg?style=flat) | ![Lines](https://img.shields.io/badge/lines-100%25-brightgreen.svg?style=flat) |
 
-# Before all
+# Prerequisites
 
 Note that, this sh files are only guaranteed to work on Debian-based Linux Distributions especially **Ubuntu**.
 
+- Docker
+
 ```shell
-install.sh    # install solc-select, mythril, slither and solc (bin/install.sh)
-yarn install  # install deps
+install.sh      # install solc-select, slither and solc (bin/install.sh)
+yarn install    # install deps
 ```
 
 Don't forget to copy the .env.example file to a file named .env, and then edit it to fill in the details.

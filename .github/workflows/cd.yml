@@ -56,7 +56,7 @@ jobs:
         run: yarn run compile --force
 
       - name: Test with coverage
-        run: yarn run coverage
+        run: yarn run test:coverage
 
       - name: Linters & Formatters
         run: yarn run hook:pre-push
