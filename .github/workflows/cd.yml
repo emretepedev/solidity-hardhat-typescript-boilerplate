@@ -53,10 +53,10 @@ jobs:
         run: yarn install --production=false
 
       - name: Hardhat compile
-        run: yarn run compile --force
+        run: yarn run hardhat compile --force
 
       - name: Test with coverage
-        run: yarn run test:coverage
+        run: yarn run hardhat test --no-compile
 
       - name: Linters & Formatters
         run: yarn run hook:pre-push
