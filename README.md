@@ -6,12 +6,10 @@
 
 # Prerequisites
 
-Note that, this sh files are only guaranteed to work on Debian-based Linux Distributions especially **Ubuntu**.
-
 - Docker
 
 ```shell
-install.sh      # install solc-select, slither and solc (bin/install.sh)
+./build.sh      # install solc and other tools in docker image
 yarn install    # install deps
 ```
 
@@ -49,8 +47,6 @@ You can use the below tools,
 - Mythril
 
 ```shell
-install.sh (if slither or mythril is not installed)
-
 yarn run analyze:static <CONTRACT>
 yarn run analyze:security <CONTRACT>
 yarn run analyze:all <CONTRACT>
@@ -86,7 +82,6 @@ yarn run generate:docs    # generate docs. it checks to /contracts folder
 ```
 
 ```shell
-install.sh (if slither is not installed)
 yarn run generate:flatten <CONTRACT>    # generate flatten file
 yarn run generate:abi <CONTRACT>        # generate ABI file
 yarn run generate:bin <CONTRACT>        # generate binary in hex
@@ -94,7 +89,6 @@ yarn run generate:bin <CONTRACT>        # generate binary in hex
 
 # TODO
 
-- Dockerize to .sh files (for compatibility with all OS)
 - Tenderly Implementation
 - Increase diversity in Workshop file
 - Add npm scripts to linters

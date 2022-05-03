@@ -1,0 +1,10 @@
+artifacts
+cache
+coverage
+docs
+node_modules
+soldata
+typechain-types
+
+coverage*
+tags*
