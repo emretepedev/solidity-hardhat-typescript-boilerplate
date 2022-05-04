@@ -26,7 +26,6 @@
     "juanblanco.solidity",
     "emretepedev.solc-select-vscode",
     "nomicfoundation.hardhat-solidity",
-    "remixproject.ethereum-remix",
-    "trailofbits.slither-vscode"
+    "remixproject.ethereum-remix"
   ]
 }

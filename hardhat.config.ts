@@ -9,6 +9,7 @@ import 'hardhat-docgen';
 import 'hardhat-abi-exporter';
 import 'hardhat-tracer';
 import 'hardhat-spdx-license-identifier';
+import '@tenderly/hardhat-tenderly';
 
 dotenv.config();
 

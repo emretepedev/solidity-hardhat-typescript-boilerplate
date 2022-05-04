@@ -73,6 +73,9 @@ yarn run deploy ropsten <CONTRACT>    # related to scripts/deploy/<CONTRACT>.ts
 yarn run deploy:all ropsten           # related to scripts/deploy.ts
 ```
 
+Also, you can add contract(s) manually to your tenderly projects from the output.
+`https://dashboard.tenderly.co/contract/<NETWORK>/<CONTRACT_ADDRESS>`
+
 And then verify it:
 
 ```shell
@@ -93,6 +96,6 @@ yarn run generate:bin <CONTRACT>        # generate the binary in a hex
 
 # TODO
 
-- Tenderly Implementation
-- Increase diversity in the Workshop file
+- Increase diversity in the Workshop Contract
 - Add npm scripts to linters
+- Add Workshop Contract tests
