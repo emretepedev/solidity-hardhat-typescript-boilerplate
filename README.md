@@ -9,7 +9,11 @@
 - Docker
 
 ```shell
-./build.sh      # install solc and other tools in docker image
+PATH+=":./bin"    # use sh files (bin/*) directly in the root folder
+```
+
+```shell
+./build.sh      # install solc and other tools in the docker image
 yarn install    # install deps
 ```
 
@@ -82,13 +86,13 @@ yarn run generate:docs    # generate docs. it checks to /contracts folder
 ```
 
 ```shell
-yarn run generate:flatten <CONTRACT>    # generate flatten file
-yarn run generate:abi <CONTRACT>        # generate ABI file
-yarn run generate:bin <CONTRACT>        # generate binary in hex
+yarn run generate:flatten <CONTRACT>    # generate the flatten file
+yarn run generate:abi <CONTRACT>        # generate the ABI file
+yarn run generate:bin <CONTRACT>        # generate the binary in a hex
 ```
 
 # TODO
 
 - Tenderly Implementation
-- Increase diversity in Workshop file
+- Increase diversity in the Workshop file
 - Add npm scripts to linters
