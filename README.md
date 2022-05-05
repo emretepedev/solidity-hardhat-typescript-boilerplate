@@ -9,7 +9,7 @@
 - Docker
 
 ```shell
-PATH+=":./bin"    # use sh files (bin/*) directly in the root folder
+PATH+=":./bin"    # use your sh files (which are located in bin/) directly from the root of the project
 ```
 
 ```shell
@@ -51,9 +51,9 @@ You can use the below tools,
 - Mythril
 
 ```shell
-yarn run analyze:static <CONTRACT>
-yarn run analyze:security <CONTRACT>
-yarn run analyze:all <CONTRACT>
+yarn run analyze:static path/to/contract
+yarn run analyze:security path/to/contract
+yarn run analyze:all path/to/contract
 ```
 
 # Deploy Contract & Verification
@@ -69,12 +69,12 @@ In this project, copy the .env.example file to a file named .env, and then edit 
 With a valid .env file in place, first deploy your contract:
 
 ```shell
-yarn run deploy ropsten <CONTRACT>    # related to scripts/deploy/<CONTRACT>.ts
-yarn run deploy:all ropsten           # related to scripts/deploy.ts
+yarn run deploy ropsten <CONTRACT_FILE_NAME>    # related to scripts/deploy/<CONTRACT_FILE_NAME>.ts
+yarn run deploy:all ropsten                     # related to scripts/deploy.ts
 ```
 
 Also, you can add contract(s) manually to your tenderly projects from the output.
-`https://dashboard.tenderly.co/contract/<NETWORK>/<CONTRACT_ADDRESS>`
+`https://dashboard.tenderly.co/contract/<NETWORK_NAME>/<CONTRACT_ADDRESS>`
 
 And then verify it:
 
@@ -89,9 +89,9 @@ yarn run generate:docs    # generate docs. it checks to /contracts folder
 ```
 
 ```shell
-yarn run generate:flatten <CONTRACT>    # generate the flatten file
-yarn run generate:abi <CONTRACT>        # generate the ABI file
-yarn run generate:bin <CONTRACT>        # generate the binary in a hex
+yarn run generate:flatten path/to/contract    # generate the flatten file
+yarn run generate:abi path/to/contract        # generate the ABI file
+yarn run generate:bin path/to/contract        # generate the binary in a hex
 ```
 
 # TODO
