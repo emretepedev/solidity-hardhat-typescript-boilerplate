@@ -13,9 +13,9 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 /**
  * @title Workshop Contract
  * @author <AUTHOR>
- * @notice The token which is one ERC20 standard
- * @custom:note This is an example workshop for a quick start
- * The main goal is to provide diversity. There is no logic
+ * @notice The token which is one ERC20 standard.
+ * @dev This is an example workshop for a quick start.
+ * @custom:note The main goal is to provide diversity. There is no logic.
  */
 contract Workshop is Context {
     // usings
@@ -57,18 +57,23 @@ contract Workshop is Context {
 
     // events
     /**
-     * @notice This event is triggered when the bar added
-     * @dev Just emit only when the bar added
+     * @notice This event is triggered when the bar added.
+     * @dev Just emit only when the bar added.
      * @param name The name value of the Foo
      * @param telemetry Indicates whether it is accepted or not
      * @param luckyNumbers The lucky numbers of the Foo
      */
-    event BarCreated(string name, bool telemetry, uint256[4] luckyNumbers, address indexed owner);
+    event BarCreated(
+        string name,
+        bool telemetry,
+        uint256[4] luckyNumbers,
+        address indexed owner
+    );
 
     // errors
     /**
-     * @notice This error is triggered when the bar name is in an invalid range
-     * @dev minLength equals to MIN_FOO_NAME_LEN and maxLength equals to MAX_FOO_NAME_LEN
+     * @notice This error is triggered when the bar name is in an invalid range.
+     * @dev minLength equals to MIN_FOO_NAME_LEN and maxLength equals to MAX_FOO_NAME_LEN.
      * @param reason The reason for the error
      * @param minLength Minimum accepted length
      * @param maxLength Maximum accepted length
@@ -89,14 +94,17 @@ contract Workshop is Context {
     // constructor
     constructor(address tokenAddress) {
         // solhint-disable-next-line reason-string
-        require(tokenAddress.isContract(), "Address must be a Contract Address");
+        require(
+            tokenAddress.isContract(),
+            "Address must be a Contract Address"
+        );
 
         token = IERC20(tokenAddress);
     }
 
     // write functions
     /**
-     * @notice Add the new Bar
+     * @notice Add the new Bar.
      * @param name The name value of the Bar
      * @param telemetry Indicates whether it is accepted or not
      * @param luckyNumbers The lucky numbers of the Bar
@@ -131,7 +139,7 @@ contract Workshop is Context {
 
     // read functions
     /**
-     * @notice Get the Bars
+     * @notice Get the Bars.
      * @return Gives all Bars
      */
     function getBars() external view returns (Bar[] memory) {
@@ -139,7 +147,7 @@ contract Workshop is Context {
     }
 
     /**
-     * @notice Get the Foos of Bar
+     * @notice Get the Foos of Bar.
      * @param barId ID of the Bar
      * @return Gives all Foos of the given Bar
      */
@@ -148,12 +156,16 @@ contract Workshop is Context {
     }
 
     /**
-     * @notice Get the Foo of Bar
+     * @notice Get the Foo of Bar.
      * @param barId ID of the Bar
      * @param fooId ID of the Foo
      * @return Gives Foo of the given Bar
      */
-    function getBarFoo(uint256 barId, uint256 fooId) external view returns (Foo memory) {
+    function getBarFoo(uint256 barId, uint256 fooId)
+        external
+        view
+        returns (Foo memory)
+    {
         return _bars[barId].foos[fooId];
     }
 }
