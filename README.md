@@ -79,7 +79,7 @@ Also, you can add contract(s) manually to your tenderly projects from the output
 And then verify it:
 
 ```shell
-yarn run verify ropsten <DEPLOYED_CONTRACT_ADDRESS> <CONSTRUCTOR_ARGUMENT(S)>    # hardhat.config.ts to see all networks
+yarn run verify ropsten <DEPLOYED_CONTRACT_ADDRESS> "<CONSTRUCTOR_ARGUMENT(S)>"    # hardhat.config.ts to see all networks
 ```
 
 # Miscellaneous

@@ -55,7 +55,7 @@ jobs:
       - name: Hardhat compile
         run: yarn run hardhat compile --force
 
-      - name: Test with coverage
+      - name: Tests
         run: yarn run hardhat test --no-compile
 
       - name: Linters & Formatters
