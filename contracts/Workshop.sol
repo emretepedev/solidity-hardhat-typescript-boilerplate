@@ -18,7 +18,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
  * @custom:note The main goal is to provide diversity. There is no logic.
  */
 contract Workshop is Context {
-    // usings
+    // libraries
     using Address for address;
     using Counters for Counters.Counter;
 

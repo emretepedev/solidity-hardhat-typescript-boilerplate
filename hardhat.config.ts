@@ -4,9 +4,9 @@ import '@nomiclabs/hardhat-etherscan';
 import '@nomiclabs/hardhat-waffle';
 import '@typechain/hardhat';
 import 'hardhat-gas-reporter';
+import 'hardhat-contract-sizer';
 import 'solidity-coverage';
 import 'hardhat-docgen';
-import 'hardhat-abi-exporter';
 import 'hardhat-tracer';
 import 'hardhat-spdx-license-identifier';
 import '@tenderly/hardhat-tenderly';
@@ -33,12 +33,6 @@ task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
 // Go to https://hardhat.org/config/ to learn more
 const config: HardhatUserConfig = {
   solidity: process.env.SOLC_VERSION || '0.8.4',
-  abiExporter: {
-    path: './soldata/abi',
-    runOnCompile: true,
-    clear: true,
-    flat: true,
-  },
   docgen: {
     path: './docs',
     clear: true,
@@ -54,6 +48,10 @@ const config: HardhatUserConfig = {
   },
   spdxLicenseIdentifier: {
     runOnCompile: true,
+  },
+  contractSizer: {
+    runOnCompile: false,
+    strict: true,
   },
   networks: {
     arbitrumTestnet: {
