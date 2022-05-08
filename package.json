@@ -10,6 +10,7 @@
     "compile": "hardhat compile",
     "console": "hardhat console",
     "size": "hardhat size-contracts",
+    "prepend-spdx": "hardhat prepend-spdx-license",
     "deploy": "deploy.sh",
     "deploy:all": "yarn run hardhat run scripts/deploy.ts --network",
     "verify": "yarn run hardhat verify --network",
