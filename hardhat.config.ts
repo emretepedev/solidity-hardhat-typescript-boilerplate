@@ -32,7 +32,18 @@ task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 const config: HardhatUserConfig = {
-  solidity: process.env.SOLC_VERSION || '0.8.7',
+  solidity: {
+    version: process.env.SOLC_VERSION || '0.8.7',
+    settings: {
+      optimizer: {
+        enabled:
+          process.env.SOLIDITY_OPTIMIZER !== undefined
+            ? process.env.SOLIDITY_OPTIMIZER.toLowerCase() === 'true'
+            : false,
+        runs: 200,
+      },
+    },
+  },
   docgen: {
     path: './docs',
     clear: true,
