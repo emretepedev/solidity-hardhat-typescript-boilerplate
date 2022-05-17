@@ -4,6 +4,7 @@ on: [push, pull_request]
 
 env:
   SOLC_VERSION: ${{ secrets.SOLC_VERSION }}
+  SOLIDITY_OPTIMIZER: ${{ secrets.SOLIDITY_OPTIMIZER }}
 
 jobs:
   cd:
