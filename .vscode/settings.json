@@ -54,6 +54,7 @@
   "versionlens.composer.caching.duration": 1,
   "versionlens.npm.caching.duration": 1,
   "errorLens.enabledDiagnosticLevels": ["error", "warning"],
+  "errorLens.excludeBySource": ["cSpell"],
   "errorLens.fontWeight": "900",
   "errorLens.margin": "2ch",
   "errorLens.messageTemplate": "$count $severity: $message -($code) -$source",
