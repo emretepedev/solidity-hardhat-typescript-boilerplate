@@ -15,32 +15,40 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const c1Name: string = 'FooToken';
-  const c1ConstructorArgs: Array<string | number | Array<string | number>> = [
-    '100000000000000',
-  ];
-  const c1Factory: ContractFactory = await ethers.getContractFactory(c1Name);
-  const c1: Contract = await c1Factory.deploy(...c1ConstructorArgs);
-  await c1.deployed();
-  console.log(c1Name + ' deployed to:', c1.address);
+  const fooTokenName: string = 'FooToken';
+  const fooTokenConstructorArgs: Array<
+    string | number | Array<string | number>
+  > = ['100000000000000'];
+  const fooTokenFactory: ContractFactory = await ethers.getContractFactory(
+    fooTokenName
+  );
+  const fooToken: Contract = await fooTokenFactory.deploy(
+    ...fooTokenConstructorArgs
+  );
+  await fooToken.deployed();
+  console.log(fooTokenName + ' deployed to:', fooToken.address);
 
-  const c2Name: string = 'Workshop';
-  const c2ConstructorArgs: Array<string | number | Array<string | number>> = [
-    c1.address,
-  ];
-  const c2Factory: ContractFactory = await ethers.getContractFactory(c2Name);
-  const c2: Contract = await c2Factory.deploy(...c2ConstructorArgs);
-  await c2.deployed();
-  console.log(c2Name + ' deployed to:', c2.address);
+  const workshopName: string = 'Workshop';
+  const workshopConstructorArgs: Array<
+    string | number | Array<string | number>
+  > = [fooToken.address];
+  const workshopFactory: ContractFactory = await ethers.getContractFactory(
+    workshopName
+  );
+  const workshop: Contract = await workshopFactory.deploy(
+    ...workshopConstructorArgs
+  );
+  await workshop.deployed();
+  console.log(workshopName + ' deployed to:', workshop.address);
 
   await tenderly.verify(
     {
-      name: c1Name,
-      address: c1.address,
+      name: fooTokenName,
+      address: fooToken.address,
     },
     {
-      name: c2Name,
-      address: c2.address,
+      name: workshopName,
+      address: workshop.address,
     }
   );
 }
