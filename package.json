@@ -13,6 +13,7 @@
     "prepend-spdx": "hardhat prepend-spdx-license",
     "deploy": "deploy.sh",
     "deploy:all": "yarn run hardhat run scripts/deploy.ts --network",
+    "deploy-verify:all": "yarn run hardhat run scripts/deployAndVerify.ts --network",
     "verify": "yarn run hardhat verify --network",
     "test": "hardhat test",
     "test:trace": "hardhat test --trace",
