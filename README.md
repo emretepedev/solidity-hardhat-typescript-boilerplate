@@ -99,3 +99,5 @@ yarn run generate:bin path/to/contract        # generate the binary in a hex
 - Increase diversity in the Workshop Contract
 - Add npm scripts to linters
 - Add Workshop Contract tests
+- Add TSLint as a TypeScript linter
+- add TypeChain to Contract variables in the TypeScript files
