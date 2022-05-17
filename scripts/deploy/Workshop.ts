@@ -1,5 +1,5 @@
 import { Contract, ContractFactory } from 'ethers';
-import { ethers, tenderly } from 'hardhat';
+import { ethers } from 'hardhat';
 
 async function main() {
   const name: string = 'Workshop';
@@ -10,11 +10,6 @@ async function main() {
   await contract.deployed();
 
   console.log(name + ' deployed to:', contract.address);
-
-  await tenderly.verify({
-    name: name,
-    address: contract.address,
-  });
 }
 
 main().catch((error) => {
