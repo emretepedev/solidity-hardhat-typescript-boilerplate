@@ -62,6 +62,9 @@ const config: HardhatUserConfig = {
         ? process.env.REPORT_GAS.toLowerCase() === 'true'
         : false,
     coinmarketcap: process.env.COINMARKETCAP_API_KEY || '',
+    gasPriceApi:
+      'https://api.etherscan.io/api?module=proxy&action=eth_gasPrice',
+    token: 'ETH',
     currency: 'USD',
   },
   networks: {

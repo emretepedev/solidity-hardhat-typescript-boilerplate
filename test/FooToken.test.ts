@@ -13,10 +13,7 @@ describe(name, () => {
   let addresses: SignerWithAddress[];
   let factory: ContractFactory;
 
-  async function transferFixture() {
-    await contract.transfer(addresses[0].address, constants.Two);
-  }
-
+  // hooks
   before(async () => {
     [owner, ...addresses] = await ethers.getSigners();
     factory = await ethers.getContractFactory(name);
@@ -26,6 +23,12 @@ describe(name, () => {
     contract = await factory.deploy(...constructorArgs);
   });
 
+  // fixtures
+  async function transferFixture() {
+    await contract.transfer(addresses[0].address, constants.Two);
+  }
+
+  // tests
   it('the token name should be correct', async () => {
     // expect
     expect(await contract.name()).to.equal('Foo Token');
