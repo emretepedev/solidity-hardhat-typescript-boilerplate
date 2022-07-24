@@ -11,6 +11,7 @@ soldata
 typechain-types
 
 gasReporterOutput.json
+remix-compiler.config.js
 
 coverage*
 *.js
