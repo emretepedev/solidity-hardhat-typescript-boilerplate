@@ -1,11 +1,11 @@
+import { loadFixture } from '@nomicfoundation/hardhat-network-helpers';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { expect, assert } from 'chai';
-import { loadFixture } from 'ethereum-waffle';
 import { Contract, ContractFactory, constants, BigNumber } from 'ethers';
 import { ethers } from 'hardhat';
 
 const name: string = 'FooToken';
-const constructorArgs: Array<string | number> = ['100000000000000'];
+const constructorArgs: Array<string | number | bigint> = [10n ** 18n];
 
 describe(name, () => {
   let contract: Contract;
@@ -25,7 +25,7 @@ describe(name, () => {
 
   // fixtures
   async function transferFixture() {
-    await contract.transfer(addresses[0].address, constants.Two);
+    return await contract.transfer(addresses[0].address, constants.Two);
   }
 
   // tests
@@ -48,9 +48,7 @@ describe(name, () => {
   });
 
   it('the token supply should be correct', async () => {
-    expect(await contract.totalSupply()).to.equal(
-      BigNumber.from('100000000000000')
-    );
+    expect(await contract.totalSupply()).to.equal(10n ** 18n);
   });
 
   it('reverts when transferring tokens to the zero address', async () => {
@@ -75,7 +73,7 @@ describe(name, () => {
     const to: SignerWithAddress = addresses[0];
     const value: BigNumber = constants.Two;
 
-    await expect(() => loadFixture(transferFixture)).to.changeTokenBalances(
+    await expect(loadFixture(transferFixture)).to.changeTokenBalances(
       contract,
       [from, to],
       [-value, value]
