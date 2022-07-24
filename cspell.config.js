@@ -9,6 +9,7 @@ module.exports = {
     'lcov',
     'svmrc',
     'nomiclabs',
+    'nomicfoundation',
     'mythril',
     'sloads',
     'ftmscan',
