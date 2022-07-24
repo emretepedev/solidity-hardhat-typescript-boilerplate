@@ -11,6 +11,7 @@ module.exports = {
     'nomiclabs',
     'nomicfoundation',
     'mythril',
+    'remixd',
     'sloads',
     'ftmscan',
     'heco',
