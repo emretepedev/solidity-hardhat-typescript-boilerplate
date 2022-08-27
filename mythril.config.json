@@ -2,5 +2,8 @@
   "remappings": [
     "@openzeppelin/=node_modules/@openzeppelin/",
     "hardhat/=node_modules/hardhat/"
-  ]
+  ],
+  "optimizer": {
+    "enabled": false
+  }
 }

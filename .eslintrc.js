@@ -6,6 +6,8 @@ module.exports = {
     node: true,
   },
 
+  root: true,
+
   plugins: ['@typescript-eslint', 'json', 'promise', 'import', 'prettier'],
 
   extends: [
@@ -41,4 +43,6 @@ module.exports = {
       { ignores: ['modules'] },
     ],
   },
+
+  ignorePatterns: ['dist', '**/*.d.ts'],
 };

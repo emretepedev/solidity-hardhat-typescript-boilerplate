@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.7;
 
-// console.log() @TODO: remove that
+// TODO: console.log() remove that before deployment
 // import "hardhat/console.sol";
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";

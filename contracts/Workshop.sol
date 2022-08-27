@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.7;
 
-// @TODO: console.log() remove that before deployment
+// TODO: console.log() remove that before deployment
 // import "hardhat/console.sol";
 
 import "@openzeppelin/contracts/utils/Address.sol";
@@ -63,12 +63,7 @@ contract Workshop is Context {
      * @param telemetry Indicates whether it is accepted or not
      * @param luckyNumbers The lucky numbers of the Foo
      */
-    event BarCreated(
-        string name,
-        bool telemetry,
-        uint256[4] luckyNumbers,
-        address indexed owner
-    );
+    event BarCreated(string name, bool telemetry, uint256[4] luckyNumbers, address indexed owner);
 
     // errors
     /**
@@ -94,10 +89,7 @@ contract Workshop is Context {
     // constructor
     constructor(address tokenAddress) {
         // solhint-disable-next-line reason-string
-        require(
-            tokenAddress.isContract(),
-            "Address must be a Contract Address"
-        );
+        require(tokenAddress.isContract(), "Address must be a Contract Address");
 
         token = IERC20(tokenAddress);
     }
@@ -118,23 +110,11 @@ contract Workshop is Context {
         bar.barId = _barId.current();
         _barId.increment();
 
-        bar.foos.push(
-            Foo({
-                name: name,
-                telemetry: telemetry,
-                luckyNumbers: luckyNumbers,
-                status: Status.StepOne
-            })
-        );
+        bar.foos.push(Foo({ name: name, telemetry: telemetry, luckyNumbers: luckyNumbers, status: Status.StepOne }));
 
         _bars.push(bar);
 
-        emit BarCreated({
-            name: name,
-            telemetry: telemetry,
-            luckyNumbers: luckyNumbers,
-            owner: _msgSender()
-        });
+        emit BarCreated({ name: name, telemetry: telemetry, luckyNumbers: luckyNumbers, owner: _msgSender() });
     }
 
     // read functions
@@ -161,11 +141,7 @@ contract Workshop is Context {
      * @param fooId ID of the Foo
      * @return Gives Foo of the given Bar
      */
-    function getBarFoo(uint256 barId, uint256 fooId)
-        external
-        view
-        returns (Foo memory)
-    {
+    function getBarFoo(uint256 barId, uint256 fooId) external view returns (Foo memory) {
         return _bars[barId].foos[fooId];
     }
 }

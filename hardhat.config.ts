@@ -11,6 +11,7 @@ import 'hardhat-spdx-license-identifier';
 import '@tenderly/hardhat-tenderly';
 import '@nomicfoundation/hardhat-chai-matchers';
 import '@nomiclabs/hardhat-ethers';
+import 'hardhat-storage-layout';
 
 dotenv.config();
 
@@ -30,6 +31,10 @@ task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
   }
 });
 
+task('storage-layout', 'Prints the storage layout', async (_, hre) => {
+  await hre.storageLayout.export();
+});
+
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 const config: HardhatUserConfig = {
@@ -45,6 +50,11 @@ const config: HardhatUserConfig = {
           (process.env.SOLIDITY_OPTIMIZER_RUNS &&
             parseInt(process.env.SOLIDITY_OPTIMIZER_RUNS)) ||
           200,
+      },
+      outputSelection: {
+        '*': {
+          '*': ['storageLayout'],
+        },
       },
     },
   },

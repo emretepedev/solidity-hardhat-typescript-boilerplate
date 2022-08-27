@@ -10,19 +10,13 @@
     "**/soldata/*/**": true,
     "**/typechain-types/*/**": true
   },
-  "files.associations": {
-    "*.json": "javascript",
-    "package.json": "json"
-  },
   "files.saveConflictResolution": "overwriteFileOnDisk",
-  "editor.quickSuggestions": {
-    "strings": true
-  },
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": "active",
   "editor.formatOnSave": true,
   "editor.detectIndentation": false,
   "editor.insertSpaces": true,
+  "json.validate.enable": false,
   "json.format.enable": false,
   "javascript.validate.enable": false,
   "javascript.format.enable": false,
@@ -50,23 +44,6 @@
     "shellscript",
     "solidity"
   ],
-  "versionlens.caching.duration": 1,
-  "versionlens.composer.caching.duration": 1,
-  "versionlens.npm.caching.duration": 1,
-  "errorLens.enabledDiagnosticLevels": ["error", "warning"],
-  "errorLens.excludeBySource": ["cSpell"],
-  "errorLens.fontWeight": "900",
-  "errorLens.margin": "2ch",
-  "errorLens.messageTemplate": "$count $severity: $message -($code) -$source",
-  "errorLens.statusBarMessageTemplate": "$message $source $severity $code",
-  "errorLens.statusBarMessageEnabled": true,
-  "errorLens.statusBarCommand": "copyMessage",
-  "errorLens.statusBarColorsEnabled": true,
-  "errorLens.statusBarIconsEnabled": true,
-  "errorLens.statusBarMessageType": "closestProblem",
-  "errorLens.gutterIconsEnabled": true,
-  "errorLens.gutterIconsFollowCursorOverride": false,
-  "errorLens.onSave": true,
   "coverage-gutters.showLineCoverage": true,
   "redhat.telemetry.enabled": false,
   "emeraldwalk.runonsave": {
