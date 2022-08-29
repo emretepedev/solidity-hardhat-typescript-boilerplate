@@ -48,6 +48,7 @@ const config: HardhatUserConfig = {
           false,
         runs:
           (process.env.SOLIDITY_OPTIMIZER_RUNS &&
+            Boolean(parseInt(process.env.SOLIDITY_OPTIMIZER_RUNS)) &&
             parseInt(process.env.SOLIDITY_OPTIMIZER_RUNS)) ||
           200,
       },
@@ -72,11 +73,13 @@ const config: HardhatUserConfig = {
   },
   gasReporter: {
     enabled:
-      process.env.REPORT_GAS !== undefined
-        ? process.env.REPORT_GAS.toLowerCase() === 'true'
-        : false,
+      (process.env.REPORT_GAS &&
+        'true' === process.env.REPORT_GAS.toLowerCase()) ||
+      false,
     coinmarketcap: process.env.COINMARKETCAP_API_KEY || '',
-    gasPriceApi: process.env.GAS_PRICE_API || '',
+    gasPriceApi:
+      process.env.GAS_PRICE_API ||
+      'https://api.etherscan.io/api?module=proxy&action=eth_gasPrice',
     token: 'ETH',
     currency: 'USD',
   },
@@ -92,6 +95,7 @@ const config: HardhatUserConfig = {
       accounts: {
         count:
           (process.env.CUSTOM_NETWORK_ACCOUNTS_COUNT &&
+            Boolean(parseInt(process.env.CUSTOM_NETWORK_ACCOUNTS_COUNT)) &&
             parseInt(process.env.CUSTOM_NETWORK_ACCOUNTS_COUNT)) ||
           0,
         mnemonic: process.env.CUSTOM_NETWORK_ACCOUNTS_MNEMONIC || '',
@@ -178,6 +182,7 @@ const config: HardhatUserConfig = {
         network: 'custom',
         chainId:
           (process.env.CUSTOM_NETWORK_CHAIN_ID &&
+            Boolean(parseInt(process.env.CUSTOM_NETWORK_CHAIN_ID)) &&
             parseInt(process.env.CUSTOM_NETWORK_CHAIN_ID)) ||
           0,
         urls: {
