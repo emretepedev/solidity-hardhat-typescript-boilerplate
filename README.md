@@ -85,13 +85,17 @@ yarn run verify ropsten <DEPLOYED_CONTRACT_ADDRESS> "<CONSTRUCTOR_ARGUMENT(S)>" 
 # Miscellaneous
 
 ```shell
-yarn run generate:docs    # generate docs. it checks to /contracts folder
+yarn run generate:docs    # generate docs according to the contracts/ folder
 ```
 
 ```shell
-yarn run generate:flatten path/to/contract    # generate the flatten file
-yarn run generate:abi path/to/contract        # generate the ABI file
-yarn run generate:bin path/to/contract        # generate the binary in a hex
+yarn run generate:flatten ./path/to/contract     # generate the flatten file
+yarn run generate:abi ./path/to/contract         # generate the ABI file
+yarn run generate:bin ./path/to/contract         # generate the binary in a hex
+yarn run generate:metadata ./path/to/contract    # generate the metadata
+yarn run generate:all-abi
+yarn run generate:all-bin
+yarn run generate:all-metadata
 ```
 
 ```shell
