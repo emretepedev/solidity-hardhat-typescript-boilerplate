@@ -21,6 +21,7 @@
     "test:trace": "hardhat test --trace",
     "test:fresh": "hardhat compile --force && hardhat test --no-compile --trace",
     "test:coverage": "hardhat coverage",
+    "build": "build.sh",
     "analyze:static": "docker run -v $(pwd):/labs analyze:latest slither",
     "analyze:security": "docker run -v $(pwd):/labs analyze:latest myth analyze --solc-json mythril.config.json",
     "analyze:all": "analyze.sh",

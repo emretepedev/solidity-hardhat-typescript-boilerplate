@@ -13,8 +13,8 @@ PATH+=":./bin"    # use your sh files (which are located in bin/) directly from 
 ```
 
 ```shell
-./build.sh      # install solc and other tools in the docker image
-yarn install    # install deps
+yarn install      # install deps
+yarn run build    # install solc and other tools in the docker image
 ```
 
 Don't forget to copy the .env.example file to a file named .env, and then edit it to fill in the details.
