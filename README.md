@@ -89,10 +89,10 @@ yarn run generate:docs    # generate docs according to the contracts/ folder
 ```
 
 ```shell
-yarn run generate:flatten ./path/to/contract     # generate the flatten file
-yarn run generate:abi ./path/to/contract         # generate the ABI file
-yarn run generate:bin ./path/to/contract         # generate the binary in a hex
-yarn run generate:metadata ./path/to/contract    # generate the metadata
+yarn run generate:flatten ./path/to/contract     # generate the flatten file (path must be "./" prefixed)
+yarn run generate:abi ./path/to/contract         # generate the ABI file (path must be "./" prefixed)
+yarn run generate:bin ./path/to/contract         # generate the binary in a hex (path must be "./" prefixed)
+yarn run generate:metadata ./path/to/contract    # generate the metadata (path must be "./" prefixed)
 yarn run generate:all-abi
 yarn run generate:all-bin
 yarn run generate:all-metadata
