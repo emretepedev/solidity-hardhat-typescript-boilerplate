@@ -19,6 +19,7 @@ module.exports = {
     'arbiscan',
     'arbitrum',
     'sokol',
+    'colorify',
     // projects
     'ierc',
   ],
