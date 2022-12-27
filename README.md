@@ -82,6 +82,16 @@ And then verify it:
 yarn run verify ropsten <DEPLOYED_CONTRACT_ADDRESS> "<CONSTRUCTOR_ARGUMENT(S)>"    # hardhat.config.ts to see all networks
 ```
 
+# Finder
+
+```shell
+yarn run finder --path contracts/Workshop.sol --name Workshop abi --colorify --compact --prettify    # find contract outputs of specific contract
+```
+
+```shell
+yarn run finder --help    # see all supported outputs (abi, metadata, bytecode and more than 20+ outputs)
+```
+
 # Miscellaneous
 
 ```shell

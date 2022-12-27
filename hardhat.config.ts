@@ -12,6 +12,7 @@ import '@tenderly/hardhat-tenderly';
 import '@nomicfoundation/hardhat-chai-matchers';
 import '@nomiclabs/hardhat-ethers';
 import 'hardhat-storage-layout';
+import 'hardhat-finder';
 
 dotenv.config();
 
