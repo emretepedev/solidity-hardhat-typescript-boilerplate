@@ -21,7 +21,6 @@
   "javascript.validate.enable": false,
   "javascript.format.enable": false,
   "typescript.format.enable": false,
-  "typescript.validate.enable": false,
   "typescript.surveys.enabled": false,
   "eslint.validate": ["typescript"],
   "[dotenv][ignore][shellscript][dockerfile]": {
@@ -36,14 +35,6 @@
     "editor.defaultFormatter": "NomicFoundation.hardhat-solidity",
     "editor.tabSize": 4
   },
-  "cSpell.diagnosticLevel": "Warning",
-  "cSpell.enableFiletypes": [
-    "dotenv",
-    "dockerfile",
-    "ignore",
-    "shellscript",
-    "solidity"
-  ],
   "coverage-gutters.showLineCoverage": true,
   "redhat.telemetry.enabled": false,
   "emeraldwalk.runonsave": {

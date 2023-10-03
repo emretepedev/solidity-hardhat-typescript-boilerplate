@@ -1,74 +1,36 @@
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// When running the script with `npx hardhat run <script>` you'll find the Hardhat
-// Runtime Environment's members available in the global scope.
-import { Contract, ContractFactory } from 'ethers';
-import { ethers, tenderly, run } from 'hardhat';
+import { TASK_VERIFY_VERIFY } from '@nomicfoundation/hardhat-verify/internal/task-names';
+import { ethers, run } from 'hardhat';
 
 async function main() {
-  // Hardhat always runs the compile task when running scripts with its command
-  // line interface.
-  //
-  // If this script is run directly using `node` you may want to call compile
-  // manually to make sure everything is compiled
-  // await hre.run('compile');
+  const fooTokenContractName = 'FooToken';
+  const fooTokenConstructorArgs: any[] = ['100000000000000'];
+  const fooTokenFactory = await ethers.getContractFactory(fooTokenContractName);
+  const fooToken = await fooTokenFactory.deploy(fooTokenConstructorArgs[0]);
+  await fooToken.waitForDeployment();
+  const fooTokenAddress = await fooToken.getAddress();
+  console.log(fooTokenContractName + ' deployed to:', fooTokenAddress);
 
-  // We get the contract to deploy
-  const fooTokenContractName: string = 'FooToken';
-  const fooTokenConstructorArgs: Array<
-    string | number | Array<string | number>
-  > = ['100000000000000'];
-  const fooTokenFactory: ContractFactory = await ethers.getContractFactory(
-    fooTokenContractName
-  );
-  const fooToken: Contract = await fooTokenFactory.deploy(
-    ...fooTokenConstructorArgs
-  );
-  await fooToken.deployed();
-  console.log(fooTokenContractName + ' deployed to:', fooToken.address);
+  const workshopContractName = 'Workshop';
+  const workshopConstructorArgs: any[] = [fooTokenAddress];
+  const workshopFactory = await ethers.getContractFactory(workshopContractName);
+  const workshop = await workshopFactory.deploy(workshopConstructorArgs[0]);
+  await workshop.waitForDeployment();
+  const workshopAddress = await workshop.getAddress();
+  console.log(workshopContractName + ' deployed to:', workshopAddress);
 
-  const workshopContractName: string = 'Workshop';
-  const workshopConstructorArgs: Array<
-    string | number | Array<string | number>
-  > = [fooToken.address];
-  const workshopFactory: ContractFactory = await ethers.getContractFactory(
-    workshopContractName
-  );
-  const workshop: Contract = await workshopFactory.deploy(
-    ...workshopConstructorArgs
-  );
-  await workshop.deployed();
-  console.log(workshopContractName + ' deployed to:', workshop.address);
-
-  await setTimeout(async () => {
-    // verify contracts on explorer
-    await run('verify:verify', {
-      address: fooToken.address,
+  setTimeout(async () => {
+    await run(TASK_VERIFY_VERIFY, {
+      address: fooTokenAddress,
       constructorArguments: fooTokenConstructorArgs,
     });
 
-    await run('verify:verify', {
-      address: workshop.address,
+    await run(TASK_VERIFY_VERIFY, {
+      address: workshopAddress,
       constructorArguments: workshopConstructorArgs,
     });
-
-    // send notice to tenderly for contracts
-    await tenderly.verify(
-      {
-        name: fooTokenContractName,
-        address: fooToken.address,
-      },
-      {
-        name: workshopContractName,
-        address: workshop.address,
-      }
-    );
-  }, 1000 * 60); // 60 secs
+  }, 1000 * 60);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;

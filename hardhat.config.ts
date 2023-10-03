@@ -1,46 +1,24 @@
-import * as dotenv from 'dotenv';
-import { HardhatUserConfig, task } from 'hardhat/config';
-import '@nomiclabs/hardhat-etherscan';
-import '@typechain/hardhat';
-import 'hardhat-gas-reporter';
-import 'hardhat-contract-sizer';
-import 'solidity-coverage';
-import 'hardhat-docgen';
-import 'hardhat-tracer';
-import 'hardhat-spdx-license-identifier';
-import '@tenderly/hardhat-tenderly';
-import '@nomicfoundation/hardhat-chai-matchers';
-import '@nomiclabs/hardhat-ethers';
-import 'hardhat-storage-layout';
+import { config as dotenvConfig } from 'dotenv';
+import { HardhatUserConfig } from 'hardhat/config';
+import '@nomicfoundation/hardhat-toolbox';
 import 'hardhat-finder';
+import 'hardhat-storage-vault';
+import 'solidity-docgen';
+import 'hardhat-contract-sizer';
+import 'hardhat-tracer';
+import './tasks';
 
-dotenv.config();
+dotenvConfig();
 
-function getWallet(): Array<string> {
+function getWallet() {
   return process.env.DEPLOYER_WALLET_PRIVATE_KEY !== undefined
     ? [process.env.DEPLOYER_WALLET_PRIVATE_KEY]
     : [];
 }
 
-// This is a sample Hardhat task. To learn how to create your own go to
-// https://hardhat.org/guides/create-task.html
-task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
-  const accounts = await hre.ethers.getSigners();
-
-  for (const account of accounts) {
-    console.log(account.address);
-  }
-});
-
-task('storage-layout', 'Prints the storage layout', async (_, hre) => {
-  await hre.storageLayout.export();
-});
-
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
 const config: HardhatUserConfig = {
   solidity: {
-    version: process.env.SOLC_VERSION || '0.8.7',
+    version: process.env.SOLC_VERSION || '0.8.18',
     settings: {
       optimizer: {
         enabled:
@@ -60,17 +38,24 @@ const config: HardhatUserConfig = {
       },
     },
   },
+  storageVault: {
+    check: {
+      storeFile: 'storage-store-lock.json',
+    },
+    lock: {
+      storeFile: 'storage-store-lock.json',
+      prettify: true,
+    },
+  },
+  finder: {
+    prettify: true,
+  },
   docgen: {
-    path: './docs',
-    clear: true,
-    runOnCompile: false,
+    outputDir: './docs',
   },
   contractSizer: {
     runOnCompile: false,
     strict: true,
-  },
-  spdxLicenseIdentifier: {
-    runOnCompile: false,
   },
   gasReporter: {
     enabled:

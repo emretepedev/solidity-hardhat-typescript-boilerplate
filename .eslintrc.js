@@ -27,6 +27,8 @@ module.exports = {
   },
 
   rules: {
+    'node/no-missing-import': 'off',
+    'node/no-unpublished-import': 'off',
     'prettier/prettier': 'warn',
     'import/order': [
       'warn',

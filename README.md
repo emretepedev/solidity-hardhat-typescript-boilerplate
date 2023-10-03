@@ -35,8 +35,6 @@ You can use the below packages,
 - Solhint
 - ESLint
 - Prettier
-- CSpell
-- ShellCheck
 
 ```shell
 yarn run format
@@ -92,6 +90,24 @@ yarn run finder --path contracts/Workshop.sol --name Workshop abi --colorify --c
 yarn run finder --help    # see all supported outputs (abi, metadata, bytecode and more than 20+ outputs)
 ```
 
+# Storage Vault
+
+```shell
+yarn run storage:lock    # create storage layout for all contracts
+```
+
+```shell
+yarn run storage:lock --help    # see all supported options
+```
+
+```shell
+yarn run storage:check    # check storage layout for all contracts by comparing with existing layout json file
+```
+
+```shell
+yarn run storage:check --help    # see all supported options
+```
+
 # Miscellaneous
 
 ```shell
@@ -116,4 +132,4 @@ yarn run share    # share project folder with remix ide
 
 - Increase diversity in the Workshop Contract
 - Add Workshop Contract tests
-- Add TSLint as a TypeScript linter
+- Add Upgradeable Contract Examples

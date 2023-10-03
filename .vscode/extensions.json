@@ -1,12 +1,6 @@
 {
   "recommendations": [
-    "mikestead.dotenv",
-    "timonwong.shellcheck",
-    "foxundermoon.shell-format",
-    "ms-azuretools.vscode-docker",
     "emeraldwalk.runonsave",
-    "redhat.vscode-yaml",
-    "streetsidesoftware.code-spell-checker",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "abumalick.vscode-nvm",

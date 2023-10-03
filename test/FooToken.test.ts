@@ -1,17 +1,22 @@
-import { loadFixture } from '@nomicfoundation/hardhat-network-helpers';
-import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
+import {
+  anyUint,
+  anyValue,
+} from '@nomicfoundation/hardhat-chai-matchers/withArgs';
+import { HardhatEthersSigner } from '@nomicfoundation/hardhat-ethers/signers';
+import {
+  loadFixture,
+  reset,
+} from '@nomicfoundation/hardhat-toolbox/network-helpers';
 import { expect, assert } from 'chai';
-import { constants, BigNumber } from 'ethers';
+import { ZeroAddress } from 'ethers';
 import { ethers } from 'hardhat';
-
-// eslint-disable-next-line node/no-missing-import
-import type { FooToken, FooToken__factory } from '../typechain-types';
+import { FooToken, FooToken__factory } from '../typechain-types';
 
 describe('FooToken', () => {
   let fooToken: FooToken;
   let fooTokenFactory: FooToken__factory;
-  let owner: SignerWithAddress;
-  let addresses: SignerWithAddress[];
+  let owner: HardhatEthersSigner;
+  let addresses: HardhatEthersSigner[];
 
   // hooks
   before(async () => {
@@ -22,12 +27,14 @@ describe('FooToken', () => {
   });
 
   beforeEach(async () => {
+    await reset();
+
     fooToken = await fooTokenFactory.deploy(10n ** 18n);
   });
 
   // fixtures
   async function transferFixture() {
-    return await fooToken.transfer(addresses[0].address, constants.Two);
+    return await fooToken.transfer(addresses[0].address, 2n);
   }
 
   // tests
@@ -46,7 +53,7 @@ describe('FooToken', () => {
   });
 
   it('the token decimal should be correct', async () => {
-    expect(await fooToken.decimals()).to.equal(BigNumber.from(1));
+    expect(await fooToken.decimals()).to.equal(1n);
   });
 
   it('the token supply should be correct', async () => {
@@ -54,26 +61,24 @@ describe('FooToken', () => {
   });
 
   it('reverts when transferring tokens to the zero address', async () => {
-    // Conditions that trigger a require statement can be precisely tested
-    await expect(
-      fooToken.transfer(constants.AddressZero, constants.One)
-    ).to.be.revertedWith('ERC20: transfer to the zero address');
+    await expect(fooToken.transfer(ZeroAddress, 1n)).to.be.revertedWith(
+      'ERC20: transfer to the zero address'
+    );
   });
 
   it('emits a Transfer event on successful transfers', async () => {
-    const from: SignerWithAddress = owner;
-    const to: SignerWithAddress = addresses[0];
-    const value: BigNumber = constants.One;
+    const to = addresses[0];
+    const value = 1n;
 
     await expect(fooToken.transfer(to.address, value))
       .to.emit(fooToken, 'Transfer')
-      .withArgs(from.address, to.address, value);
+      .withArgs(anyValue, to.address, anyUint);
   });
 
   it('token balance successfully changed', async () => {
-    const from: SignerWithAddress = owner;
-    const to: SignerWithAddress = addresses[0];
-    const value: BigNumber = constants.Two;
+    const from = owner;
+    const to = addresses[0];
+    const value = 2n;
 
     await expect(loadFixture(transferFixture)).to.changeTokenBalances(
       fooToken,

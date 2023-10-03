@@ -9,7 +9,6 @@ elif [ -f ".svmrc" ]; then
   solc-select install "$SOLC_VERSION"
   solc-select use "$SOLC_VERSION"
 elif [ -f ".env" ]; then
-  # shellcheck source=../.env
   source ".env"
 
   solc-select install "$SOLC_VERSION"
