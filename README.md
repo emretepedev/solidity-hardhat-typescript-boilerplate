@@ -133,3 +133,6 @@ yarn run share    # share project folder with remix ide
 - Increase diversity in the Workshop Contract
 - Add Workshop Contract tests
 - Add Upgradeable Contract Examples
+- Add OpenZeppelin Defender
+- Add Tenderly
+- Fix Prettier for Solidity files
