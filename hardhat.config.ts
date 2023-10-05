@@ -20,6 +20,10 @@ const config: HardhatUserConfig = {
   solidity: {
     version: process.env.SOLC_VERSION || '0.8.18',
     settings: {
+      viaIR:
+        (process.env.SOLIDITY_VIA_IR &&
+          'true' === process.env.SOLIDITY_VIA_IR.toLowerCase()) ||
+        false,
       optimizer: {
         enabled:
           (process.env.SOLIDITY_OPTIMIZER &&
