@@ -116,6 +116,10 @@ const config: HardhatUserConfig = {
       url: process.env.GOERLI_RPC_URL || '',
       accounts: getWallet(),
     },
+    sepolia: {
+      url: process.env.SEPOLIA_RPC_URL || '',
+      accounts: getWallet(),
+    },
     harmonyTest: {
       url: process.env.HARMONY_TEST_RPC_URL || '',
       accounts: getWallet(),
@@ -124,24 +128,12 @@ const config: HardhatUserConfig = {
       url: process.env.HECO_TESTNET_RPC_URL || '',
       accounts: getWallet(),
     },
-    kovan: {
-      url: process.env.KOVAN_RPC_URL || '',
-      accounts: getWallet(),
-    },
     moonbaseAlpha: {
       url: process.env.MOONBASE_ALPHA_RPC_URL || '',
       accounts: getWallet(),
     },
     polygonMumbai: {
       url: process.env.POLYGON_MUMBAI_RPC_URL || '',
-      accounts: getWallet(),
-    },
-    rinkeby: {
-      url: process.env.RINKEBY_RPC_URL || '',
-      accounts: getWallet(),
-    },
-    ropsten: {
-      url: process.env.ROPSTEN_RPC_URL || '',
       accounts: getWallet(),
     },
     sokol: {
@@ -158,12 +150,10 @@ const config: HardhatUserConfig = {
       ftmTestnet: process.env.FTMSCAN_API_KEY || '',
       harmonyTest: process.env.HARMONY_POPS_API_KEY || '',
       hecoTestnet: process.env.HECOINFO_API_KEY || '',
-      goerli: process.env.ETHERSCAN_API_KEY || '',
-      kovan: process.env.ETHERSCAN_API_KEY || '',
+      goerli: process.env.GOERLI_ETHERSCAN_API_KEY || '',
+      sepolia: process.env.SEPOLIA_ETHERSCAN_API_KEY || '',
       moonbaseAlpha: process.env.MOONSCAN_API_KEY || '',
       polygonMumbai: process.env.POLYGONSCAN_API_KEY || '',
-      rinkeby: process.env.ETHERSCAN_API_KEY || '',
-      ropsten: process.env.ETHERSCAN_API_KEY || '',
       sokol: process.env.BLOCKSCOUT_API_KEY || '',
       custom: process.env.CUSTOM_EXPLORER_API_KEY || '',
     },
