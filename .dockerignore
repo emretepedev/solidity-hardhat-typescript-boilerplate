@@ -4,6 +4,7 @@ coverage
 docs
 node_modules
 soldata
+blockscout
 
 coverage*
 tags*

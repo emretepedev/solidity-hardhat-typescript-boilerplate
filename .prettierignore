@@ -4,6 +4,7 @@ cache
 docs
 node_modules
 soldata
+blockscout
 
 gasReporterOutput.json
 
