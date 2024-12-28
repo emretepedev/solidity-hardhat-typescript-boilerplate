@@ -1,0 +1,45 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "solhint-matcher",
+      "type": "shell",
+      "command": "yarn",
+      "args": ["solhint", "${file}"],
+      "problemMatcher": {
+        "owner": "solhint",
+        "fileLocation": ["absolute"],
+        "pattern": [
+          {
+            "regexp": "^([^\\s].*)$",
+            "file": 1
+          },
+          {
+            "regexp": "^\\s*(\\d+):(\\d+)\\s+(warning|error|info)\\s+(.+?)\\s{2,}(\\S+)$",
+            "line": 1,
+            "column": 2,
+            "severity": 3,
+            "message": 4,
+            "code": 5,
+            "loop": true
+          }
+        ]
+      },
+      "presentation": {
+        "reveal": "never",
+        "panel": "shared",
+        "showReuseMessage": false
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "options": {
+        "ignoreExitCode": true
+      }
+    }
+  ]
+}

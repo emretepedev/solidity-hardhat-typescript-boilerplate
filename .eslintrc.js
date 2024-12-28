@@ -1,12 +1,21 @@
+/** @type {import('eslint').Linter} */
 module.exports = {
   env: {
     browser: false,
-    es2021: true,
+    es2020: true,
     mocha: true,
     node: true,
   },
 
   root: true,
+
+  settings: {
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+      },
+    },
+  },
 
   plugins: ['@typescript-eslint', 'json', 'promise', 'import', 'prettier'],
 
@@ -23,7 +32,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
 
   parserOptions: {
-    ecmaVersion: 12,
+    ecmaVersion: 2020,
   },
 
   rules: {
@@ -45,6 +54,16 @@ module.exports = {
       { ignores: ['modules'] },
     ],
   },
+
+  overrides: [
+    {
+      files: '**/*.js',
+      rules: {
+        'node/no-unpublished-require': 'off',
+        'node/no-missing-require': 'off',
+      },
+    },
+  ],
 
   ignorePatterns: ['dist', '**/*.d.ts'],
 };

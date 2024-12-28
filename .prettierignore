@@ -4,10 +4,10 @@ cache
 docs
 node_modules
 soldata
-typechain-types
 
 gasReporterOutput.json
 
+.vscode/
 coverage*
 .*rc
 .env*

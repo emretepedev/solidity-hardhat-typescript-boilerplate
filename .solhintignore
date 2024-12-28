@@ -8,7 +8,6 @@ docs
 node_modules
 scripts
 soldata
-typechain-types
 
 coverage*
 *.js

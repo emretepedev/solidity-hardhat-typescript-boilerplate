@@ -1,14 +1,13 @@
 {
   "recommendations": [
-    "emeraldwalk.runonsave",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "abumalick.vscode-nvm",
-    "ryanluker.vscode-coverage-gutters",
+    "emretepedev.solc-select-vscode",
     "hbenl.vscode-mocha-test-adapter",
     "juanblanco.solidity",
-    "emretepedev.solc-select-vscode",
     "nomicfoundation.hardhat-solidity",
-    "remixproject.ethereum-remix"
+    "remixproject.ethereum-remix",
+    "gruntfuggly.triggertaskonsave"
   ]
 }

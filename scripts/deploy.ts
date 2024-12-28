@@ -1,24 +1,19 @@
-import { ethers } from 'hardhat';
+import { viem } from 'hardhat';
+import fooTokenArgs from '../ignition/modules/FooTokenArgs';
 
 async function main() {
-  const fooTokenName = 'FooToken';
-  const fooTokenConstructorArgs: any[] = ['100000000000000'];
-  const fooTokenFactory = await ethers.getContractFactory(fooTokenName);
-  const fooToken = await fooTokenFactory.deploy(fooTokenConstructorArgs[0]);
-  await fooToken.waitForDeployment();
-  const fooTokenAddress = await fooToken.getAddress();
-  console.log(fooTokenName + ' deployed to:', fooTokenAddress);
+  const fooTokenContractName = 'FooToken';
+  const fooToken = await viem.deployContract(
+    fooTokenContractName,
+    fooTokenArgs
+  );
+  console.log(`${fooTokenContractName} deployed to: ${fooToken.address}`);
 
-  const workshopName = 'Workshop';
-  const workshopConstructorArgs: any[] = [fooTokenAddress];
-  const workshopFactory = await ethers.getContractFactory(workshopName);
-  const workshop = await workshopFactory.deploy(workshopConstructorArgs[0]);
-  await workshop.waitForDeployment();
-  const workshopAddress = await workshop.getAddress();
-  console.log(workshopName + ' deployed to:', workshopAddress);
+  const workshopContractName = 'Workshop';
+  const workshop = await viem.deployContract(workshopContractName, [
+    fooToken.address,
+  ]);
+  console.log(`${workshopContractName} deployed to: ${workshop.address}`);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main().catch(console.error);

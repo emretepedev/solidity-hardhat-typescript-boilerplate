@@ -1,3 +1,7 @@
+require('dotenv').config();
+
+const { SOLC_VERSION } = process.env;
+
 module.exports = {
   semi: true,
   singleQuote: true,
@@ -9,19 +13,21 @@ module.exports = {
   printWidth: 80,
   useTabs: false,
   quoteProps: 'as-needed',
+  plugins: ['prettier-plugin-solidity'],
   overrides: [
     {
       files: '*.sol',
       options: {
-        semi: true,
-        singleQuote: false,
-        tabWidth: 4,
-        trailingComma: 'none',
-        bracketSpacing: true,
-        arrowParens: 'avoid',
+        compiler: SOLC_VERSION || '0.8.28',
+        parser: 'slang-solidity',
         printWidth: 120,
+        tabWidth: 4,
         useTabs: false,
-        compiler: '^0.8.18',
+        singleQuote: false,
+        bracketSpacing: false, // TODO: x check this (in docs, false)
+        // semi: true,
+        // trailingComma: 'none',
+        // arrowParens: 'avoid',
       },
     },
   ],

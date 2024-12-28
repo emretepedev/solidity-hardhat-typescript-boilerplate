@@ -1,89 +1,100 @@
-import {
-  anyUint,
-  anyValue,
-} from '@nomicfoundation/hardhat-chai-matchers/withArgs';
-import { HardhatEthersSigner } from '@nomicfoundation/hardhat-ethers/signers';
-import {
-  loadFixture,
-  reset,
-} from '@nomicfoundation/hardhat-toolbox/network-helpers';
+import { loadFixture } from '@nomicfoundation/hardhat-toolbox-viem/network-helpers';
 import { expect, assert } from 'chai';
-import { ZeroAddress } from 'ethers';
-import { ethers } from 'hardhat';
-import { FooToken, FooToken__factory } from '../typechain-types';
+import { viem } from 'hardhat';
+import { Address, zeroAddress } from 'viem';
+import fooTokenArgs, {
+  fooTokenArgsMap,
+} from '../ignition/modules/FooTokenArgs';
 
 describe('FooToken', () => {
-  let fooToken: FooToken;
-  let fooTokenFactory: FooToken__factory;
-  let owner: HardhatEthersSigner;
-  let addresses: HardhatEthersSigner[];
+  async function deployFixture() {
+    const [deployer, ...walletClients] = await viem.getWalletClients();
+    const publicClient = await viem.getPublicClient();
 
-  // hooks
-  before(async () => {
-    [owner, ...addresses] = await ethers.getSigners();
-    fooTokenFactory = (await ethers.getContractFactory(
-      'FooToken'
-    )) as FooToken__factory;
-  });
+    const fooToken = await viem.deployContract('FooToken', fooTokenArgs);
 
-  beforeEach(async () => {
-    await reset();
-
-    fooToken = await fooTokenFactory.deploy(10n ** 18n);
-  });
-
-  // fixtures
-  async function transferFixture() {
-    return await fooToken.transfer(addresses[0].address, 2n);
+    return {
+      fooToken,
+      fooTokenArgsMap,
+      deployer,
+      walletClients,
+      publicClient,
+    };
   }
 
-  // tests
+  describe('Deployment', () => {
+    it('Should deploy the contract', async function () {
+      const { fooToken } = await loadFixture(deployFixture);
+
+      expect(fooToken.address).to.be.a('string');
+    });
+
+    it('Should have the right constants', async function () {
+      const { fooToken, fooTokenArgsMap } = await loadFixture(deployFixture);
+
+      expect(await fooToken.read.totalSupply()).to.equal(
+        fooTokenArgsMap.initialSupply
+      );
+    });
+
+    it('Should have the right state variables', async function () {
+      const { fooToken, deployer, fooTokenArgsMap } =
+        await loadFixture(deployFixture);
+
+      expect(
+        await fooToken.read.balanceOf([deployer.account.address])
+      ).to.equal(fooTokenArgsMap.initialSupply);
+    });
+  });
+
   it('the token name should be correct', async () => {
-    // expect
-    expect(await fooToken.name()).to.equal('Foo Token');
+    const { fooToken } = await loadFixture(deployFixture);
+
+    expect(await fooToken.read.name()).to.equal('Foo Token');
   });
 
   it('the token symbol should be correct', async () => {
-    // assert
+    const { fooToken } = await loadFixture(deployFixture);
+
     assert.equal(
-      await fooToken.symbol(),
+      await fooToken.read.symbol(),
       'FOO',
       'The token symbol must be valid.'
     );
   });
 
   it('the token decimal should be correct', async () => {
-    expect(await fooToken.decimals()).to.equal(1n);
-  });
+    const { fooToken } = await loadFixture(deployFixture);
 
-  it('the token supply should be correct', async () => {
-    expect(await fooToken.totalSupply()).to.equal(10n ** 18n);
+    expect(await fooToken.read.decimals()).to.equal(1);
   });
 
   it('reverts when transferring tokens to the zero address', async () => {
-    await expect(fooToken.transfer(ZeroAddress, 1n)).to.be.revertedWith(
-      'ERC20: transfer to the zero address'
-    );
+    const { fooToken } = await loadFixture(deployFixture);
+
+    await expect(
+      fooToken.write.transfer([zeroAddress as Address, 1n])
+    ).to.be.rejectedWith('ERC20InvalidReceiver');
   });
 
   it('emits a Transfer event on successful transfers', async () => {
-    const to = addresses[0];
+    const { fooToken, deployer, publicClient, walletClients } =
+      await loadFixture(deployFixture);
+
+    const from = deployer.account;
+    const to = walletClients[0].account;
     const value = 1n;
+    const hash = await fooToken.write.transfer([to.address, value], {
+      account: from,
+    });
 
-    await expect(fooToken.transfer(to.address, value))
-      .to.emit(fooToken, 'Transfer')
-      .withArgs(anyValue, to.address, anyUint);
-  });
+    await publicClient.waitForTransactionReceipt({
+      hash,
+    });
 
-  it('token balance successfully changed', async () => {
-    const from = owner;
-    const to = addresses[0];
-    const value = 2n;
-
-    await expect(loadFixture(transferFixture)).to.changeTokenBalances(
-      fooToken,
-      [from, to],
-      [-value, value]
-    );
+    const [transferEvent] = await fooToken.getEvents.Transfer();
+    expect(transferEvent.args.from).to.match(new RegExp(from.address, 'i'));
+    expect(transferEvent.args.to).to.match(new RegExp(to.address, 'i'));
+    expect(transferEvent.args.value).to.equal(value);
   });
 });

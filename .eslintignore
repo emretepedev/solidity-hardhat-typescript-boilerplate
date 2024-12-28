@@ -10,7 +10,7 @@ contracts
 docs
 node_modules
 soldata
-typechain-types
+blockscout
 
 gasReporterOutput.json
 

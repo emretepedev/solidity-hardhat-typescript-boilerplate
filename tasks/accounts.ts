@@ -4,14 +4,13 @@ task('accounts', 'Prints the list of accounts')
   .addOptionalParam('count', 'The count of accounts', undefined, types.int)
   .setAction(async (taskArguments, hre) => {
     let { count }: { count?: number } = taskArguments;
-    const accounts = await hre.ethers.getSigners();
-    const accountsLength = accounts.length;
+    const accounts = await hre.viem.getWalletClients();
     count =
-      (count = count ?? accountsLength) < accountsLength
+      (count = count ?? accounts.length) < accounts.length
         ? count
-        : accountsLength;
+        : accounts.length;
 
-    for (let i = 0; i < count && i < accountsLength; i++) {
-      console.log(accounts[i].address);
+    for (let i = 0; i < count && i < accounts.length; i++) {
+      console.log(accounts[i].account.address);
     }
   });

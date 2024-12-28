@@ -1,19 +1,17 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.18;
+pragma solidity 0.8.28;
 
-// TODO: console.log() remove that before deployment
 // import "hardhat/console.sol";
-
-import { Address } from "@openzeppelin/contracts/utils/Address.sol";
-import { Context } from "@openzeppelin/contracts/utils/Context.sol";
-import { Counters } from "@openzeppelin/contracts/utils/Counters.sol";
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {Address} from "@openzeppelin/contracts/utils/Address.sol";
+import {Context} from "@openzeppelin/contracts/utils/Context.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {Counters} from "./Counters.sol";
 
 /**
  * @title Workshop Contract
  * @author <AUTHOR>
- * @notice The token which is one ERC20 standard.
+ * @notice This contract is an example workshop for a quick start.
  * @dev This is an example workshop for a quick start.
  * @custom:note The main goal is to provide diversity. There is no logic.
  */
@@ -50,10 +48,12 @@ contract Workshop is Context {
     uint8 public constant MAX_FOO_NAME_LEN = 255;
     uint8 public constant MIN_FOO_NAME_LEN = 1;
 
-    IERC20 public immutable token;
+    IERC20 public immutable ERC20_TOKEN;
 
     Counters.Counter private _barId;
     Bar[] private _bars;
+
+    bool private transient locked;
 
     // events
     /**
@@ -86,12 +86,21 @@ contract Workshop is Context {
         _;
     }
 
+    modifier nonReentrant() {
+        // solhint-disable-next-line
+        require(!locked, "Reentrancy attempt");
+
+        locked = true;
+        _;
+        locked = false;
+    }
+
     // constructor
     constructor(address tokenAddress) {
-        // solhint-disable-next-line reason-string
-        require(tokenAddress.isContract(), "Address must be a Contract Address");
+        // solhint-disable-next-line gas-custom-errors
+        // require(tokenAddress.isContract(), "Address must be a Contract");
 
-        token = IERC20(tokenAddress);
+        ERC20_TOKEN = IERC20(tokenAddress);
     }
 
     // write functions
@@ -102,19 +111,19 @@ contract Workshop is Context {
      * @param luckyNumbers The lucky numbers of the Bar
      */
     function addBar(
-        string memory name,
+        string calldata name,
         bool telemetry,
-        uint256[4] memory luckyNumbers
+        uint256[4] calldata luckyNumbers
     ) external onlyFooNameLenInRange(bytes(name).length) {
         Bar storage bar = _userBar[_msgSender()];
         bar.barId = _barId.current();
-        _barId.increment();
+        _barId = _barId.increment();
 
-        bar.foos.push(Foo({ name: name, telemetry: telemetry, luckyNumbers: luckyNumbers, status: Status.StepOne }));
+        bar.foos.push(Foo({name: name, telemetry: telemetry, luckyNumbers: luckyNumbers, status: Status.StepOne}));
 
         _bars.push(bar);
 
-        emit BarCreated({ name: name, telemetry: telemetry, luckyNumbers: luckyNumbers, owner: _msgSender() });
+        emit BarCreated({name: name, telemetry: telemetry, luckyNumbers: luckyNumbers, owner: _msgSender()});
     }
 
     // read functions

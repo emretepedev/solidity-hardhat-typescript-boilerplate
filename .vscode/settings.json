@@ -7,49 +7,25 @@
     "**/artifacts/*/**": true,
     "**/cache/*/**": true,
     "**/coverage/*/**": true,
-    "**/soldata/*/**": true,
-    "**/typechain-types/*/**": true
+    "**/soldata/*/**": true
   },
   "files.saveConflictResolution": "overwriteFileOnDisk",
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": "active",
-  "editor.formatOnSave": true,
-  "editor.detectIndentation": false,
-  "editor.insertSpaces": true,
   "json.validate.enable": false,
   "json.format.enable": false,
   "javascript.validate.enable": false,
   "javascript.format.enable": false,
   "typescript.format.enable": false,
-  "typescript.surveys.enabled": false,
   "eslint.validate": ["typescript"],
-  "[dotenv][ignore][shellscript][dockerfile]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format",
-    "editor.tabSize": 2
+  "solidity.formatter": "none",
+  "solidity.defaultCompiler": "localNodeModule",
+  "solidity.linter": "none",
+  "[json][jsonc][javascript][typescript][solidity]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[yaml][json][jsonc][javascript][typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.tabSize": 2
+  "triggerTaskOnSave.tasks": {
+    "solhint-matcher": ["*.sol"]
   },
-  "[solidity]": {
-    "editor.defaultFormatter": "NomicFoundation.hardhat-solidity",
-    "editor.tabSize": 4
-  },
-  "coverage-gutters.showLineCoverage": true,
-  "redhat.telemetry.enabled": false,
-  "emeraldwalk.runonsave": {
-    "commands": [
-      {
-        "match": "\\.(json|js|ts)$",
-        "cmd": "yarn run prettier ${file} --write; yarn run eslint ${file} --fix;",
-        "isAsync": true
-      },
-      {
-        "match": "contracts/.*sol$",
-        "cmd": "yarn run prettier ${file} --write; yarn run solhint ${file} --fix;",
-        "isAsync": true
-      }
-    ]
-  },
-  "hardhat.telemetry": false
+  "triggerTaskOnSave.restart": true
 }

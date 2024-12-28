@@ -1,24 +1,33 @@
-import { ethers } from 'hardhat';
+import { viem } from 'hardhat';
+import { vars } from 'hardhat/config';
+import { Address } from 'viem';
+import workshopArgs, {
+  workshopArgsMap,
+} from '../../ignition/modules/WorkshopArgs';
 
 async function main() {
-  const tokenName = 'FooToken';
-  const tokenConstructorArgs: any[] = ['100000000000000'];
-  const tokenFactory = await ethers.getContractFactory(tokenName);
-  const tokenContract = await tokenFactory.deploy(tokenConstructorArgs[0]);
-  await tokenContract.waitForDeployment();
-  const tokenContractAddress = await tokenContract.getAddress();
-  console.log(tokenName + ' deployed to:', tokenContractAddress);
+  const fooTokenAddressKey = 'FOO_TOKEN_ADDRESS';
+  if (!vars.has(fooTokenAddressKey)) {
+    throw new Error(`${fooTokenAddressKey} is not set`);
+  }
 
-  const name = 'Workshop';
-  const constructorArgs: any[] = [tokenContractAddress];
-  const factory = await ethers.getContractFactory(name);
-  const contract = await factory.deploy(constructorArgs[0]);
-  await contract.waitForDeployment();
-  const contractAddress = await contract.getAddress();
-  console.log(name + ' deployed to:', contractAddress);
+  const fooToken = await viem.getContractAt(
+    'FooToken',
+    vars.get(fooTokenAddressKey) as Address
+  );
+  if (
+    workshopArgsMap.tokenAddress.toLowerCase() !==
+    fooToken.address.toLowerCase()
+  ) {
+    throw new Error('Address mismatch');
+  }
+
+  const workshopContractName = 'Workshop';
+  const workshop = await viem.deployContract(
+    workshopContractName,
+    workshopArgs
+  );
+  console.log(`${workshopContractName} deployed to: ${workshop.address}`);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main().catch(console.error);
