@@ -42,7 +42,8 @@
     "format:ts": "prettier '**/{*,''}.ts' --write; eslint '**/{*,''}.ts' --fix;",
     "format:sol": "prettier '**/*.sol' --write; solhint 'contracts/*.sol' --fix;",
     "lint": "prettier '**/{*,''}.{json,js,ts,sol}' --check; solhint 'contracts/*.sol'; eslint '**/{*,''}.{json,js,ts}';",
-    "hook:pre-push": "tsc --noEmit && prettier '**/{*,''}.{json,js,ts,sol}' --check && solhint 'contracts/*.sol' && eslint '**/{*,''}.{json,js,ts}'"
+    "hook:pre-push": "tsc --noEmit && prettier '**/{*,''}.{json,js,ts,sol}' --check && solhint 'contracts/*.sol' && eslint '**/{*,''}.{json,js,ts}'",
+    "postinstall": "git submodule update --init --recursive"
   },
   "husky": {
     "hooks": {
