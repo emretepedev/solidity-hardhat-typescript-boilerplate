@@ -15,6 +15,7 @@ library Counters {
 
     function decrement(Counter counter) internal pure returns (Counter) {
         uint256 value = toUint256(counter);
+
         // solhint-disable-next-line gas-custom-errors
         require(value > 0, "Counter: decrement overflow");
 
