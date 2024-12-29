@@ -18,7 +18,7 @@
     "mythril": "docker run -v $(pwd):/labs analyze pipenv run myth analyze --solc-json mythril.config.json",
     "flatten": "docker run -v $(pwd):/labs analyze slither-flat --solc-args '--base-path /labs --include-path /labs/node_modules' --dir soldata/flatten/",
     "share": "remixd -s . --remix-ide https://remix.ethereum.org",
-    "lint": "prettier '**/{*,''}.{json,js,ts,sol}' --check; eslint '**/{*,''}.{json,js,ts}'; solhint 'contracts/*.sol';",
+    "lint": "tsc --noEmit && prettier '**/{*,''}.{json,js,ts,sol}' --check && eslint '**/{*,''}.{json,js,ts}' && solhint 'contracts/*.sol'",
     "lint:fix": "prettier '**/{*,''}.{json,js,ts,sol}' --write; eslint '**/{*,''}.{json,js,ts}' --fix; solhint --noPrompt 'contracts/*.sol' --fix;",
     "setup-analyzers": "docker build -t analyze -f docker/Dockerfile ."
   },

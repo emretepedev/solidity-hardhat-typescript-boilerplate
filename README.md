@@ -1,6 +1,6 @@
 # Prerequisites
 
-- Docker
+- [Docker](https://github.com/docker)
 
 ```shell
 yarn install
@@ -57,7 +57,7 @@ yarn hardhat docgen
 # Local Network & Blockscout Explorer
 
 ```shell
-# start a local network
+# start a local network at http://localhost:8545
 yarn hardhat node
 ```
 
@@ -86,7 +86,12 @@ yarn run node:run scripts/deploy.ts
 
 ```shell
 # verify the contract on the local network
-yarn run node:verify --constructor-args ignition/modules/FooTokenArgs.ts <CONTRACT_ADDRESS>
+yarn run node:verify --constructor-args ignition/modules/FooTokenArgs.ts <FOO_TOKEN_CONTRACT_ADDRESS>
+```
+
+```shell
+# analyze the on-chain contract on the local network
+yarn mythril --address <FOO_TOKEN_CONTRACT_ADDRESS> --rpc host.docker.internal:8545
 ```
 
 # Deploy Contract & Verification
