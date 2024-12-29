@@ -59,8 +59,8 @@ jobs:
       - name: Tests
         run: yarn run hardhat test --no-compile
 
-      - name: Linters & Formatters
-        run: yarn run hook:pre-push
+      - name: Format and lint
+        run: yarn tsc --noEmit && yarn prettier '**/{*,''}.{json,js,ts,sol}' --check && yarn eslint '**/{*,''}.{json,js,ts}' && yarn solhint 'contracts/*.sol'
 
       - name: Analyze to contracts
         if: steps.verify-changed-sol-files.outputs.files_changed == 'true'
