@@ -109,6 +109,12 @@ const config: HardhatUserConfig = {
         (ALLOW_UNLIMITED_CONTRACT_SIZE &&
           'true' === ALLOW_UNLIMITED_CONTRACT_SIZE.toLowerCase()) ||
         false,
+      mining: {
+        auto: true,
+        interval: 5000,
+      },
+      hardfork: EVM_VERSION || 'cancun',
+      enableTransientStorage: true,
     },
     custom: {
       url: CUSTOM_NETWORK_URL || '',
