@@ -24,10 +24,7 @@ module.exports = {
         tabWidth: 4,
         useTabs: false,
         singleQuote: false,
-        bracketSpacing: false, // TODO: x check this (in docs, false)
-        // semi: true,
-        // trailingComma: 'none',
-        // arrowParens: 'avoid',
+        bracketSpacing: false,
       },
     },
   ],

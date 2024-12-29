@@ -1,138 +1,125 @@
-# Coverage Report
-
-| Statements                                                                               | Functions                                                                              | Lines                                                                          |
-| ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| ![Statements](https://img.shields.io/badge/statements-100%25-brightgreen.svg?style=flat) | ![Functions](https://img.shields.io/badge/functions-100%25-brightgreen.svg?style=flat) | ![Lines](https://img.shields.io/badge/lines-100%25-brightgreen.svg?style=flat) |
-
 # Prerequisites
 
 - Docker
 
 ```shell
-PATH+=":./bin"    # use your sh files (which are located in bin/) directly from the root of the project
+yarn install
+yarn run setup-analyzers  # install slither, mythril, solc, and other tools in the docker image
 ```
 
-```shell
-yarn install      # install deps
-yarn run build    # install solc and other tools in the docker image
-```
-
-Don't forget to copy the .env.example file to a file named .env, and then edit it to fill in the details.
-
-# Running all the tests
-
-```shell
-yarn run test
-yarn run test:trace       # shows logs + calls
-yarn run test:fresh       # force compile and then run tests
-yarn run test:coverage    # run tests with coverage reports
-```
-
-# Formatters & Linters
-
-You can use the below packages,
-
-- Solhint
-- ESLint
-- Prettier
-
-```shell
-yarn run format
-yarn run lint
-```
+Don't forget to copy the `.env.example` file to `.env`, then edit it to provide the required details.
 
 # Analyzers
 
-You can use the below tools,
+Before using the analyzers, make sure to complete the **Prerequisites** step.
 
-- Slither
-- Mythril
+- [Slither](https://github.com/crytic/slither)
+- [Mythril](https://github.com/Consensys/mythril)
 
 ```shell
-yarn run analyze:static path/to/contract
-yarn run analyze:security path/to/contract
-yarn run analyze:all path/to/contract
+yarn run slither path/to/contract
+yarn run mythril path/to/contract
+```
+
+# Lint & Format
+
+- [Solhint](https://github.com/protofire/solhint)
+- [ESLint](https://github.com/eslint/eslint)
+- [Prettier](https://github.com/prettier/prettier)
+
+```shell
+yarn run lint
+yarn run lint:fix
+```
+
+# Tests
+
+```shell
+yarn hardhat test
+yarn hardhat coverage  # run tests and generate coverage report
+```
+
+# Documentation
+
+```shell
+yarn run docgen  # generate docs according to the contracts/ folder
+```
+
+# Local Network & Blockscout Explorer
+
+```shell
+yarn hardhat node  # start a local network
+```
+
+```shell
+yarn run blockscout:start  # start the blockscout explorer for the local network
+```
+
+```shell
+yarn run blockscout:stop
+```
+
+```shell
+yarn run blockscout:reset
+```
+
+```shell
+yarn run blockscout:refresh  # use this after restarting your node
 ```
 
 # Deploy Contract & Verification
 
-To try out Etherscan verification, you first need to deploy a contract to an Ethereum network that's supported by Etherscan, such as Sepolia.
+To verify a contract, you first need to deploy it to a network.
 
-In this project, copy the .env.example file to a file named .env, and then edit it to fill in the details.
+In this project, copy the .env.example file to .env, then edit it to provide the required details:
 
-- Enter your Etherscan API key
-- Sepolia Node URL (eg from Alchemy)
-- The private key of the account which will send the deployment transaction.
+- Enter the API key you obtained from an explorer (e.g., Etherscan) in the corresponding variable. (e.g., ETHERSCAN_API_KEY)
+- Provide the RPC URL of the network you want to deploy to. (e.g., MAINNET_RPC_URL)
+- Specify the private key of the account that will send the deployment transaction (DEPLOYER_WALLET_PRIVATE_KEY).
 
-With a valid .env file in place, first deploy your contract:
+With a properly configured .env file, deploy your contract by running:
 
 ```shell
-yarn run deploy sepolia <CONTRACT_FILE_NAME>    # related to scripts/deploy/<CONTRACT_FILE_NAME>.ts
-yarn run deploy:all sepolia                     # related to scripts/deploy.ts
+yarn hardhat run --network <YOUR_NETWORK> scripts/deploy.ts
 ```
 
-Also, you can add contract(s) manually to your tenderly projects from the output.
+You can also manually add the contract(s) to your Tenderly project using the output URL:
 `https://dashboard.tenderly.co/contract/<NETWORK_NAME>/<CONTRACT_ADDRESS>`
 
-And then verify it:
+Finally, verify the contract:
 
 ```shell
-yarn run verify sepolia <DEPLOYED_CONTRACT_ADDRESS> "<CONSTRUCTOR_ARGUMENT(S)>"    # hardhat.config.ts to see all networks
-```
-
-# Finder
-
-```shell
-yarn run finder --path contracts/Workshop.sol --name Workshop abi --colorify --compact --prettify    # find contract outputs of specific contract
-```
-
-```shell
-yarn run finder --help    # see all supported outputs (abi, metadata, bytecode and more than 20+ outputs)
-```
-
-# Storage Vault
-
-```shell
-yarn run storage:lock    # create storage layout for all contracts
-```
-
-```shell
-yarn run storage:lock --help    # see all supported options
-```
-
-```shell
-yarn run storage:check    # check storage layout for all contracts by comparing with existing layout json file
-```
-
-```shell
-yarn run storage:check --help    # see all supported options
+yarn hardhat verify --network <YOUR_NETWORK> <YOUR_CONTRACT_ADDRESS> "<CONSTRUCTOR_ARGUMENT(S)>"
 ```
 
 # Miscellaneous
 
 ```shell
-yarn run generate:docs    # generate docs according to the contracts/ folder
+yarn hardhat finder --colorify --compact --prettify --write-to-file --contract-path contracts/Workshop.sol --contract-name Workshop abi bytecode metadata  # find outputs of specific contract and write to file
 ```
 
 ```shell
-yarn run generate:flatten ./path/to/contract     # generate the flatten file (path must be "./" prefixed)
-yarn run generate:abi ./path/to/contract         # generate the ABI file (path must be "./" prefixed)
-yarn run generate:bin ./path/to/contract         # generate the binary in a hex (path must be "./" prefixed)
-yarn run generate:metadata ./path/to/contract    # generate the metadata (path must be "./" prefixed)
-yarn run generate:all-abi
-yarn run generate:all-bin
-yarn run generate:all-metadata
+yarn hardhat storage-lock # create lock file of storage layout for your contracts
 ```
 
 ```shell
-yarn run share    # share project folder with remix ide
+yarn hardhat storage-check  # check by comparing with existing lock file of storage layout
+```
+
+```shell
+yarn run flatten path/to/contract  # generate a flattened version of the contract
+```
+
+```shell
+yarn run share  # share the project with remix-ide
 ```
 
 # TODO
 
-- Increase diversity in the Workshop Contract
-- Add Workshop Contract tests
-- Add Upgradeable Contract Examples
-- Add OpenZeppelin Defender
-- Add Tenderly
-- Fix Prettier for Solidity files
+Contributions to this project are welcome! You can help by adding new features or fixing bugs. Here are some suggestions:
+
+- Enhance diversity in the Workshop Contract
+- Add tests for the Workshop Contract
+- Include examples of Upgradeable Contracts
+- Integrate OpenZeppelin Defender
+- Integrate Tenderly
