@@ -13,6 +13,7 @@ dotenvConfig();
 const {
   DEPLOYER_WALLET_PRIVATE_KEY,
   SOLC_VERSION,
+  EVM_VERSION,
   SOLIDITY_VIA_IR,
   SOLIDITY_OPTIMIZER,
   SOLIDITY_OPTIMIZER_RUNS,
@@ -53,7 +54,7 @@ const config: HardhatUserConfig = {
     version: SOLC_VERSION || '0.8.28',
     settings: {
       // TODO: temporary workaround to use the transient storage feature
-      evmVersion: 'cancun',
+      evmVersion: EVM_VERSION || 'cancun',
       viaIR:
         (SOLIDITY_VIA_IR && 'true' === SOLIDITY_VIA_IR.toLowerCase()) || false,
       optimizer: {
