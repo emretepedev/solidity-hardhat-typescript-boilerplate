@@ -13,39 +13,59 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [18.x]
+        node: [20.x]
         python: [3.9.x]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Verify Changed sol files in the contracts directory
+      - name: Changed sol files check
         uses: tj-actions/changed-files@v45
         id: changed-sol-files
         with:
           files: contracts/*.sol
 
       - name: Setup Python
+        if: steps.changed-sol-files.outputs.any_changed == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
 
+      - name: Get pip cache directory path
+        id: pip-cache-dir-path
+        run: echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache pip
+        if: steps.changed-sol-files.outputs.any_changed == 'true'
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pip-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-pip-${{ matrix.python }}-slither0-10-4-id-1
+
+      - name: Cache pip (Mythril)
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pip-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-pip-mythril-${{ matrix.python }}-v0-24-8-id-1
+
       - name: Install Analyzer tools
         if: steps.changed-sol-files.outputs.any_changed == 'true'
-        run: pip3 install --use-deprecated=legacy-resolver slither-analyzer==0.10.4 mythril==0.24.8
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U wheel setuptools
+          pip install slither-analyzer==0.10.4
 
-      # - name: Setup Solc
-      #   run: |
-      #     sudo apt-get -y install libssl-dev python3-dev python3-pip
-      #     pip3 install solc-select
-
-      #     solc-select install ${{ env.SOLC_VERSION }}
-      #     solc-select use ${{ env.SOLC_VERSION }}
+          python -m venv venv_mythril
+          source venv_mythril/bin/activate
+          python -m pip install --upgrade pip
+          pip install -U wheel setuptools
+          pip install mythril==0.24.8
+          deactivate
 
       - name: Setup Solc
         if: steps.changed-sol-files.outputs.any_changed == 'true'
-        uses: pontem-network/get-solc@master
+        uses: pontem-network/get-solc@f67593db4487ac96b4bf8031123a6deefc399b2e
         with:
           version: v${{ env.SOLC_VERSION }}
 
@@ -54,18 +74,35 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Install dependencies with dev deps
-        run: yarn install --production=false --ignore-scripts
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
 
-      - name: Hardhat compile
-        run: yarn run hardhat compile --force
+      - name: Cache yarn
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-id-1
+
+      - name: Install dependencies
+        run: yarn install --production=false --ignore-scripts --frozen-lockfile --prefer-offline
 
       - name: Tests
-        run: yarn run hardhat test --no-compile
+        run: yarn run hardhat test &
 
       - name: Format and lint
-        run: yarn tsc --noEmit && yarn prettier '**/{*,''}.{json,js,ts,sol}' --check && yarn eslint '**/{*,''}.{json,js,ts}' && yarn solhint 'contracts/*.sol'
+        run: yarn tsc --noEmit && yarn prettier '**/{*,''}.{json,js,ts,sol}' --check && yarn eslint '**/{*,''}.{json,js,ts}' && yarn solhint 'contracts/*.sol' &
 
-      - name: Analyze to contracts
+      - name: Analyze contracts with Slither
         if: steps.changed-sol-files.outputs.any_changed == 'true'
-        run: slither contracts/ && myth analyze --solc-json mythril.config.json contracts/*.sol
+        run: slither contracts/ &
+
+      - name: Analyze contracts with Mythril
+        if: steps.changed-sol-files.outputs.any_changed == 'true'
+        run: |
+          source venv_mythril/bin/activate
+          for file in contracts/*.sol; do
+            myth analyze --solc-json mythril.config.json "$file" &
+          done
+          wait
+          deactivate
