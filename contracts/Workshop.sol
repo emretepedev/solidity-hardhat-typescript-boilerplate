@@ -18,7 +18,6 @@ contract Workshop is Context {
     // libraries
     using Counters for Counters.Counter;
 
-    // enums
     enum Status {
         BeforeAll,
         StepOne,
@@ -26,7 +25,6 @@ contract Workshop is Context {
         StepThree
     }
 
-    // structs
     struct Bar {
         uint256 barId;
         Foo[] foos;
@@ -39,7 +37,6 @@ contract Workshop is Context {
         Status status;
     }
 
-    // mappings
     mapping(address => Bar) private _userBar;
 
     // variables
@@ -115,7 +112,6 @@ contract Workshop is Context {
         _barId = _barId.increment();
 
         bar.foos.push(Foo({name: name, telemetry: telemetry, luckyNumbers: luckyNumbers, status: Status.StepOne}));
-
         _bars.push(bar);
 
         emit BarCreated({name: name, telemetry: telemetry, luckyNumbers: luckyNumbers, owner: _msgSender()});
