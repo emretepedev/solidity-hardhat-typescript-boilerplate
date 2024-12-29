@@ -1,0 +1,12 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+mythril = "==0.24.8"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

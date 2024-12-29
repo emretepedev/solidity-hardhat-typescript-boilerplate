@@ -21,3 +21,4 @@ soldata
 docs
 storageLayout
 Pipfile*
+!docker/Pipfile*

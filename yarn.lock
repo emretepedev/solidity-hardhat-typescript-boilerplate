@@ -5023,11 +5023,6 @@ isows@1.0.6:
   resolved "https://registry.yarnpkg.com/isows/-/isows-1.0.6.tgz#0da29d706fa51551c663c627ace42769850f86e7"
   integrity sha512-lPHCayd40oW98/I0uvgaHKWCSvkzY27LjWLbtzOm64yQ+G3Q5npjjbdppU65iZXkK1Zt+kH9pfegli0AYfwYYw==
 
-istanbul-badges-readme@^1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/istanbul-badges-readme/-/istanbul-badges-readme-1.9.0.tgz#fdf00255233f3f3afde743210942589824a37c2d"
-  integrity sha512-sD9lTsFajcfK07euJReQ0C9dy0VmXViMDJk67EZseGRC+jv+esxt5I3Viqoi1b43m5in5ek5b+0rpxJi41bJVw==
-
 jackspeak@^3.1.2:
   version "3.4.3"
   resolved "https://registry.yarnpkg.com/jackspeak/-/jackspeak-3.4.3.tgz#8833a9d89ab4acde6188942bd1c53b6390ed5a8a"
