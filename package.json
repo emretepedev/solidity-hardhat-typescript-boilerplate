@@ -5,7 +5,7 @@
   "name": "solidity-hardhat-typescript-boilerplate",
   "description": "Solidity Hardhat TypeScript Boilerplate",
   "scripts": {
-    "prepare": "husky install && git submodule update --init --recursive",
+    "prepare": "husky && git submodule update --init --recursive",
     "blockscout:start": "docker compose -f blockscout/docker-compose/hardhat-network.yml up -d",
     "blockscout:stop": "docker compose -f blockscout/docker-compose/hardhat-network.yml down -v",
     "blockscout:kill": "yarn run blockscout:stop && rm -rf blockscout/docker-compose/services/*-data blockscout/docker-compose/services/logs",
