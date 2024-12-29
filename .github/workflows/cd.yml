@@ -44,6 +44,7 @@ jobs:
       #     solc-select use ${{ env.SOLC_VERSION }}
 
       - name: Setup Solc
+        if: steps.changed-sol-files.outputs.any_changed == 'true'
         uses: pontem-network/get-solc@master
         with:
           version: v${{ env.SOLC_VERSION }}

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // solhint-disable-next-line compiler-version
-pragma solidity ^0.8.26;
+pragma solidity ^0.8.28;
 
 /**
  * @dev Tooling for timepoints, timers and delays
