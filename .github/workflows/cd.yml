@@ -21,8 +21,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Verify Changed sol files in the contracts directory
-        uses: tj-actions/verify-changed-files@v20
-        id: verify-changed-files
+        uses: tj-actions/changed-files@v45
+        id: changed-files
         with:
           files: |
             contracts
@@ -34,7 +34,7 @@ jobs:
           python-version: ${{ matrix.python }}
 
       - name: Install Analyzer tools
-        if: contains(steps.verify-changed-files.outputs.changed_files, 'contracts')
+        if: contains(steps.changed-files.outputs.changed_files, 'contracts')
         run: |
           pip3 install slither-analyzer
           pip3 install mythril
@@ -65,5 +65,5 @@ jobs:
         run: yarn tsc --noEmit && yarn prettier '**/{*,''}.{json,js,ts,sol}' --check && yarn eslint '**/{*,''}.{json,js,ts}' && yarn solhint 'contracts/*.sol'
 
       - name: Analyze to contracts
-        if: contains(steps.verify-changed-files.outputs.changed_files, 'contracts')
+        if: contains(steps.changed-files.outputs.changed_files, 'contracts')
         run: slither contracts/ && myth analyze --solc-json mythril.config.json contracts/*.sol
