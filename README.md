@@ -4,7 +4,11 @@
 
 ```shell
 yarn install
-yarn run setup-analyzers  # install slither, mythril, solc, and other tools in the docker image
+```
+
+```shell
+# install slither, mythril, solc, and other tools in the docker image
+yarn run setup-analyzers
 ```
 
 Don't forget to copy the `.env.example` file to `.env`, then edit it to provide the required details.
@@ -36,23 +40,30 @@ yarn run lint:fix
 
 ```shell
 yarn hardhat test
-yarn hardhat coverage  # run tests and generate coverage report
+```
+
+```shell
+# run tests and generate coverage report
+yarn run coverage
 ```
 
 # Documentation
 
 ```shell
-yarn run docgen  # generate docs according to the contracts/ folder
+# generate docs according to the contracts/ folder
+yarn hardhat docgen
 ```
 
 # Local Network & Blockscout Explorer
 
 ```shell
-yarn hardhat node  # start a local network
+# start a local network
+yarn hardhat node
 ```
 
 ```shell
-yarn run blockscout:start  # start the blockscout explorer for the local network
+# start the blockscout explorer at http://localhost:80 for the local network
+yarn run blockscout:start
 ```
 
 ```shell
@@ -64,7 +75,18 @@ yarn run blockscout:reset
 ```
 
 ```shell
-yarn run blockscout:refresh  # use this after restarting your node
+# use this after restarting your node
+yarn run blockscout:refresh
+```
+
+```shell
+# deploy the contract to the local network
+yarn run node:run scripts/deploy.ts
+```
+
+```shell
+# verify the contract on the local network
+yarn run node:verify --constructor-args ignition/modules/FooTokenArgs.ts <CONTRACT_ADDRESS>
 ```
 
 # Deploy Contract & Verification
@@ -95,23 +117,28 @@ yarn hardhat verify --network <YOUR_NETWORK> <YOUR_CONTRACT_ADDRESS> "<CONSTRUCT
 # Miscellaneous
 
 ```shell
-yarn hardhat finder --colorify --compact --prettify --write-to-file --contract-path contracts/Workshop.sol --contract-name Workshop abi bytecode metadata  # find outputs of specific contract and write to file
+# find outputs of specific contract and write to file
+yarn hardhat finder --contract-path contracts/FooToken.sol --contract-name FooToken --write-to-file abi bytecode metadata --colorify --compact --prettify
 ```
 
 ```shell
-yarn hardhat storage-lock # create lock file of storage layout for your contracts
+# create lock file of storage layout for your contracts
+yarn hardhat storage-lock
 ```
 
 ```shell
-yarn hardhat storage-check  # check by comparing with existing lock file of storage layout
+# check by comparing with existing lock file of storage layout
+yarn hardhat storage-check
 ```
 
 ```shell
-yarn run flatten path/to/contract  # generate a flattened version of the contract
+# generate a flattened version of the contract
+yarn run flatten path/to/contract
 ```
 
 ```shell
-yarn run share  # share the project with remix-ide
+# share the project with remix-ide
+yarn run share
 ```
 
 # TODO

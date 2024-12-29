@@ -12,13 +12,14 @@
     "blockscout:refresh": "yarn run blockscout:kill && yarn run blockscout:start",
     "node:run": "hardhat run --network localhost",
     "node:verify": "hardhat verify --network localhost",
+    "coverage": "SOLIDITY_COVERAGE=true hardhat coverage",
     "test:trace": "hardhat test --trace",
     "slither": "docker run -v $(pwd):/labs analyze slither",
     "mythril": "docker run -v $(pwd):/labs analyze pipenv run myth analyze --solc-json mythril.config.json",
     "flatten": "docker run -v $(pwd):/labs analyze slither-flat --solc-args '--base-path /labs --include-path /labs/node_modules' --dir soldata/flatten/",
     "share": "remixd -s . --remix-ide https://remix.ethereum.org",
     "lint": "prettier '**/{*,''}.{json,js,ts,sol}' --check; eslint '**/{*,''}.{json,js,ts}'; solhint 'contracts/*.sol';",
-    "lint:fix": "prettier '**/{*,''}.{json,js,ts,sol}' --write; eslint '**/{*,''}.{json,js,ts}' --fix; solhint 'contracts/*.sol' --fix;",
+    "lint:fix": "prettier '**/{*,''}.{json,js,ts,sol}' --write; eslint '**/{*,''}.{json,js,ts}' --fix; solhint --noPrompt 'contracts/*.sol' --fix;",
     "setup-analyzers": "docker build -t analyze -f docker/Dockerfile ."
   },
   "resolutions": {
