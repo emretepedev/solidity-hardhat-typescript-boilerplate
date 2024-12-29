@@ -13,18 +13,20 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [16.x]
-        python: [3.8.x]
+        node: [18.x]
+        python: [3.9.x]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
       - name: Verify Changed sol files in the contracts directory
-        uses: tj-actions/verify-changed-files@v9
-        id: verify-changed-sol-files
+        uses: tj-actions/changed-files@v45
+        id: changed-files
         with:
-          files: contracts/*.sol
+          files: |
+            contracts
+            contracts/*.sol
 
       - name: Setup Python
         uses: actions/setup-python@v3
@@ -32,7 +34,7 @@ jobs:
           python-version: ${{ matrix.python }}
 
       - name: Install Analyzer tools
-        if: steps.verify-changed-sol-files.outputs.files_changed == 'true'
+        if: contains(steps.changed-files.outputs.changed_files, 'contracts')
         run: |
           pip3 install slither-analyzer
           pip3 install mythril
@@ -59,9 +61,9 @@ jobs:
       - name: Tests
         run: yarn run hardhat test --no-compile
 
-      - name: Linters & Formatters
-        run: yarn run hook:pre-push
+      - name: Format and lint
+        run: yarn tsc --noEmit && yarn prettier '**/{*,''}.{json,js,ts,sol}' --check && yarn eslint '**/{*,''}.{json,js,ts}' && yarn solhint 'contracts/*.sol'
 
       - name: Analyze to contracts
-        if: steps.verify-changed-sol-files.outputs.files_changed == 'true'
+        if: contains(steps.changed-files.outputs.changed_files, 'contracts')
         run: slither contracts/ && myth analyze --solc-json mythril.config.json contracts/*.sol

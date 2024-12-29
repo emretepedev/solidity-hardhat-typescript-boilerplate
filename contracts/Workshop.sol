@@ -3,7 +3,6 @@
 pragma solidity 0.8.28;
 
 // import "hardhat/console.sol";
-import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import {Context} from "@openzeppelin/contracts/utils/Context.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Counters} from "./Counters.sol";
@@ -17,10 +16,8 @@ import {Counters} from "./Counters.sol";
  */
 contract Workshop is Context {
     // libraries
-    using Address for address;
     using Counters for Counters.Counter;
 
-    // enums
     enum Status {
         BeforeAll,
         StepOne,
@@ -28,7 +25,6 @@ contract Workshop is Context {
         StepThree
     }
 
-    // structs
     struct Bar {
         uint256 barId;
         Foo[] foos;
@@ -41,14 +37,13 @@ contract Workshop is Context {
         Status status;
     }
 
-    // mappings
     mapping(address => Bar) private _userBar;
 
     // variables
     uint8 public constant MAX_FOO_NAME_LEN = 255;
     uint8 public constant MIN_FOO_NAME_LEN = 1;
 
-    IERC20 public immutable ERC20_TOKEN;
+    IERC20 public immutable erc20Token;
 
     Counters.Counter private _barId;
     Bar[] private _bars;
@@ -97,10 +92,7 @@ contract Workshop is Context {
 
     // constructor
     constructor(address tokenAddress) {
-        // solhint-disable-next-line gas-custom-errors
-        // require(tokenAddress.isContract(), "Address must be a Contract");
-
-        ERC20_TOKEN = IERC20(tokenAddress);
+        erc20Token = IERC20(tokenAddress);
     }
 
     // write functions
@@ -120,7 +112,6 @@ contract Workshop is Context {
         _barId = _barId.increment();
 
         bar.foos.push(Foo({name: name, telemetry: telemetry, luckyNumbers: luckyNumbers, status: Status.StepOne}));
-
         _bars.push(bar);
 
         emit BarCreated({name: name, telemetry: telemetry, luckyNumbers: luckyNumbers, owner: _msgSender()});
