@@ -13,8 +13,8 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [16.x]
-        python: [3.8.x]
+        node: [18.x]
+        python: [3.9.x]
 
     steps:
       - name: Checkout
