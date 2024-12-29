@@ -20,3 +20,4 @@ cache
 soldata
 docs
 storageLayout
+Pipfile*

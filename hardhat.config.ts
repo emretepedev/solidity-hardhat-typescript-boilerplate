@@ -85,6 +85,11 @@ const config: HardhatUserConfig = {
       },
     },
   },
+  finder: {
+    prettify: true,
+    colorify: true,
+    outputDir: './soldata',
+  },
   storageVault: {
     check: {
       storeFile: 'storage-store-lock.json',
@@ -93,9 +98,6 @@ const config: HardhatUserConfig = {
       storeFile: 'storage-store-lock.json',
       prettify: true,
     },
-  },
-  finder: {
-    prettify: true,
   },
   docgen: {
     outputDir: './docs',

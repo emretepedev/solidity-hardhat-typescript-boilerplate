@@ -4306,10 +4306,10 @@ hardhat-contract-sizer@^2.10.0:
     cli-table3 "^0.6.0"
     strip-ansi "^6.0.0"
 
-hardhat-finder@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/hardhat-finder/-/hardhat-finder-3.0.0.tgz#eb8d4503e3e438747bb953f2759d6b695559f490"
-  integrity sha512-7f5uu7yrO87acSIHrW0uVvJijc8WOS8CZVsDdoaRj8tdhbkqBkwnFoyo5eGSd648hTbcxLxY87MsWkI0Df7WRw==
+hardhat-finder@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/hardhat-finder/-/hardhat-finder-3.1.2.tgz#efc50e652aac2842f86dc916402a9e85158aa481"
+  integrity sha512-xX7FfbKTm2ms5/7qQ9vXh4gtXAPdb6kukdhgQQLKZ9KoT4YEsYGLl7i85rbZElB4xlH8ogB2OSYi5GYudpAZ6Q==
   dependencies:
     chalk "^4.1.2"
     deepmerge "^4.2.2"
