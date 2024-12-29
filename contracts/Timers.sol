@@ -1,10 +1,7 @@
 // SPDX-License-Identifier: MIT
-// solhint-disable-next-line compiler-version
-pragma solidity ^0.8.28;
 
-/**
- * @dev Tooling for timepoints, timers and delays
- */
+pragma solidity 0.8.28;
+
 library Timers {
     struct BlockNumber {
         uint256 _at;
