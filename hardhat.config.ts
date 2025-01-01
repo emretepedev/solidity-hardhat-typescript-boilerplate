@@ -6,6 +6,8 @@ import 'hardhat-finder';
 import 'hardhat-storage-vault';
 import 'hardhat-contract-sizer';
 import 'hardhat-tracer';
+import 'hardhat-exposed';
+import 'hardhat-exposed/dist/type-extensions';
 import './tasks';
 
 dotenvConfig();
@@ -102,6 +104,11 @@ const config: HardhatUserConfig = {
     gasPriceApi: GAS_PRICE_API || '',
     token: 'ETH',
     currency: 'USD',
+  },
+  exposed: {
+    include: ['**/*.sol'],
+    outDir: 'contracts-exposed',
+    prefix: '$',
   },
   networks: {
     hardhat: {

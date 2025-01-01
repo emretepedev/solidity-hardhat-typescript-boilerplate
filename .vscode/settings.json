@@ -7,7 +7,11 @@
     "**/artifacts/*/**": true,
     "**/cache/*/**": true,
     "**/coverage/*/**": true,
-    "**/soldata/*/**": true
+    "**/soldata/*/**": true,
+    "**/blockscout/*/**": true
+  },
+  "files.exclude": {
+   "blockscout": true
   },
   "files.saveConflictResolution": "overwriteFileOnDisk",
   "editor.bracketPairColorization.enabled": true,

@@ -9,6 +9,7 @@ node_modules
 scripts
 soldata
 blockscout
+contracts-exposed
 
 coverage*
 *.js

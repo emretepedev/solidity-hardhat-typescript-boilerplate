@@ -4308,6 +4308,14 @@ hardhat-contract-sizer@^2.10.0:
     cli-table3 "^0.6.0"
     strip-ansi "^6.0.0"
 
+hardhat-exposed@^0.3.15:
+  version "0.3.15"
+  resolved "https://registry.yarnpkg.com/hardhat-exposed/-/hardhat-exposed-0.3.15.tgz#8096b5b65ac9059e126f2413f9415e2ec0eb458b"
+  integrity sha512-jqxErCnSWGYf4vAkLmh3H3u+IuLuCLw/EVeV13z1JKJMJAd/iO+G283n8T124S/Q2BF/BoA2zgzYAlqXgNyKew==
+  dependencies:
+    micromatch "^4.0.4"
+    solidity-ast "^0.4.52"
+
 hardhat-finder@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/hardhat-finder/-/hardhat-finder-3.1.2.tgz#efc50e652aac2842f86dc916402a9e85158aa481"
@@ -6809,7 +6817,7 @@ solhint@^5.0.3:
   optionalDependencies:
     prettier "^2.8.3"
 
-solidity-ast@^0.4.38, solidity-ast@^0.4.51:
+solidity-ast@^0.4.38, solidity-ast@^0.4.51, solidity-ast@^0.4.52:
   version "0.4.59"
   resolved "https://registry.yarnpkg.com/solidity-ast/-/solidity-ast-0.4.59.tgz#290a2815aef70a61092591ab3e991da080ae5931"
   integrity sha512-I+CX0wrYUN9jDfYtcgWSe+OAowaXy8/1YQy7NS4ni5IBDmIYBq7ZzaP/7QqouLjzZapmQtvGLqCaYgoUWqBo5g==

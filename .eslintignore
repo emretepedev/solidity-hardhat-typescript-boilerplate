@@ -7,6 +7,7 @@ artifacts
 bin
 cache
 contracts
+contracts-exposed
 docs
 node_modules
 soldata

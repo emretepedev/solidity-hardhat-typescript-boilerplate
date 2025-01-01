@@ -11,7 +11,7 @@ describe('FooToken', () => {
     const [deployer, ...walletClients] = await viem.getWalletClients();
     const publicClient = await viem.getPublicClient();
 
-    const fooToken = await viem.deployContract('FooToken', fooTokenArgs);
+    const fooToken = await viem.deployContract('$FooToken', fooTokenArgs);
 
     return {
       fooToken,
@@ -44,6 +44,16 @@ describe('FooToken', () => {
       expect(
         await fooToken.read.balanceOf([deployer.account.address])
       ).to.equal(fooTokenArgsMap.initialSupply);
+    });
+  });
+
+  describe('Exposed Functions', () => {
+    it('Should return msg.sender', async function () {
+      const { fooToken, deployer } = await loadFixture(deployFixture);
+
+      expect(await fooToken.read.$_msgSender()).to.match(
+        new RegExp(deployer.account.address, 'i')
+      );
     });
   });
 
