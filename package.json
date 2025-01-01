@@ -22,9 +22,6 @@
     "lint:fix": "prettier '**/{*,''}.{json,js,ts,sol}' --write; eslint '**/{*,''}.{json,js,ts}' --fix; solhint --noPrompt 'contracts/*.sol' --fix;",
     "setup-analyzers": "docker build -t analyze -f docker/Dockerfile ."
   },
-  "resolutions": {
-    "solhint/@solidity-parser/parser": "^0.19.0"
-  },
   "engines": {
     "node": ">=16.0.0"
   },
@@ -67,13 +64,13 @@
     "prettier": "^3.4.2",
     "prettier-plugin-solidity": "2.0.0-beta.5",
     "solc": "0.8.28",
-    "solhint": "^5.0.3",
+    "solhint": "^5.0.4",
     "solhint-plugin-prettier": "^0.1.0",
     "solidity-coverage": "^0.8.14",
     "solidity-docgen": "0.6.0-beta.36",
     "ts-node": ">=8.0.0",
     "typescript": "~5.0.4",
-    "viem": "^2.21.58"
+    "viem": "^2.22.1"
   },
   "dependencies": {}
 }
