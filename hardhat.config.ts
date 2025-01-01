@@ -55,30 +55,30 @@ const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-    version: SOLC_VERSION || '0.8.28',
-    settings: {
-      // TODO: temporary workaround to use the transient storage feature
-      evmVersion: EVM_VERSION || 'cancun',
-      viaIR:
+        version: SOLC_VERSION || '0.8.28',
+        settings: {
+          // TODO: temporary workaround to use the transient storage feature
+          evmVersion: EVM_VERSION || 'cancun',
+          viaIR:
             (SOLIDITY_VIA_IR && 'true' === SOLIDITY_VIA_IR.toLowerCase()) ||
             false,
-      optimizer: {
-        enabled:
+          optimizer: {
+            enabled:
               (SOLIDITY_OPTIMIZER &&
                 'true' === SOLIDITY_OPTIMIZER.toLowerCase()) ||
-          false,
-        runs:
-          (SOLIDITY_OPTIMIZER_RUNS &&
-            Boolean(parseInt(SOLIDITY_OPTIMIZER_RUNS)) &&
-            parseInt(SOLIDITY_OPTIMIZER_RUNS)) ||
-          200,
-      },
-      outputSelection: {
-        '*': {
-          '*': ['storageLayout'],
+              false,
+            runs:
+              (SOLIDITY_OPTIMIZER_RUNS &&
+                Boolean(parseInt(SOLIDITY_OPTIMIZER_RUNS)) &&
+                parseInt(SOLIDITY_OPTIMIZER_RUNS)) ||
+              200,
+          },
+          outputSelection: {
+            '*': {
+              '*': ['storageLayout'],
+            },
+          },
         },
-      },
-    },
       },
     ],
   },
@@ -125,10 +125,6 @@ const config: HardhatUserConfig = {
         (ALLOW_UNLIMITED_CONTRACT_SIZE &&
           'true' === ALLOW_UNLIMITED_CONTRACT_SIZE.toLowerCase()) ||
         false,
-      mining: {
-        auto: true,
-        interval: 5000,
-      },
       hardfork: EVM_VERSION || 'cancun',
       enableTransientStorage: true,
     },
