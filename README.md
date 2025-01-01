@@ -155,3 +155,4 @@ Contributions to this project are welcome! You can help by adding new features o
 - Include examples of Upgradeable Contracts
 - Integrate OpenZeppelin Defender
 - Integrate Tenderly
+- Add the "Plugins" section
