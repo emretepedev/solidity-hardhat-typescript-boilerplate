@@ -53,15 +53,19 @@ function getWallet() {
 
 const config: HardhatUserConfig = {
   solidity: {
+    compilers: [
+      {
     version: SOLC_VERSION || '0.8.28',
     settings: {
       // TODO: temporary workaround to use the transient storage feature
       evmVersion: EVM_VERSION || 'cancun',
       viaIR:
-        (SOLIDITY_VIA_IR && 'true' === SOLIDITY_VIA_IR.toLowerCase()) || false,
+            (SOLIDITY_VIA_IR && 'true' === SOLIDITY_VIA_IR.toLowerCase()) ||
+            false,
       optimizer: {
         enabled:
-          (SOLIDITY_OPTIMIZER && 'true' === SOLIDITY_OPTIMIZER.toLowerCase()) ||
+              (SOLIDITY_OPTIMIZER &&
+                'true' === SOLIDITY_OPTIMIZER.toLowerCase()) ||
           false,
         runs:
           (SOLIDITY_OPTIMIZER_RUNS &&
@@ -75,6 +79,8 @@ const config: HardhatUserConfig = {
         },
       },
     },
+      },
+    ],
   },
   finder: {
     prettify: true,
