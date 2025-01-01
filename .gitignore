@@ -4,6 +4,10 @@ node_modules
 # Coverage
 coverage*
 
+# Reporter
+gas-reporter/*
+!gas-reporter/.gitkeep
+
 # Logs
 /logs
 *.log
